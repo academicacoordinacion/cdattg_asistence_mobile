@@ -34,9 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'ingresar credenciales',
-          style: TextStyle(color: Colors.teal, fontSize: 20),
+          style: TextStyle(color: colorApp.primary, fontSize: 20),
         ),
         leading: IconButton(
           icon: Icon(Icons.home, color: colorApp.primary),

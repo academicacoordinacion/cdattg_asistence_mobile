@@ -10,10 +10,10 @@ class AsistenceScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Datos del instructor',
           style: TextStyle(
-            color: Colors.teal,
+            color: colorApp.primary,
             fontSize: 20,
             fontFamily: 'OpenSans',
           ),
