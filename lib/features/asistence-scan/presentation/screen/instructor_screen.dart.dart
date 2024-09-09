@@ -20,6 +20,7 @@ class InstructorScreen extends StatelessWidget {
             color: colorApp.primary,
             fontSize: 20,
             fontFamily: 'OpenSans',
+            fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
@@ -27,8 +28,10 @@ class InstructorScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: IconButton(
               icon: Icon(Icons.logout_rounded, color: colorApp.primary),
-              onPressed: () {
-                routerApp.go('/');
+              onPressed: () async {
+                await authService
+                    .logout(); // Llamar al método de logout en AuthService
+                routerApp.go('/'); // Redirigir al usuario a la ruta de inicio
               },
             ),
           ),

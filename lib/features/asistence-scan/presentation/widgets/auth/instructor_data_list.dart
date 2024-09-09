@@ -38,7 +38,12 @@ class _InstructorDataListState extends State<InstructorDataList> {
               ListTile(
                 title: Text(
                   'Correo',
-                  style: TextStyle(color: colorApp.primary),
+                  style: TextStyle(
+                    color: colorApp.primary,
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
                 subtitle: Text(
                   userData!['email'] ?? 'N/A',
@@ -48,28 +53,63 @@ class _InstructorDataListState extends State<InstructorDataList> {
               ListTile(
                 title: Text(
                   'Nombre',
-                  style: TextStyle(color: colorApp.primary),
+                  style: TextStyle(
+                    color: colorApp.primary,
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
-                subtitle: Text(personData!['primer_nombre'] ?? 'N/A',
-                    style: TextStyle(color: colorApp.secondary)),
+                subtitle: Text(
+                  personData!['primer_nombre'] ?? 'N/A',
+                  style: TextStyle(
+                    color: colorApp.secondary,
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ),
               ListTile(
-                title:
-                    Text('Apellido', style: TextStyle(color: colorApp.primary)),
-                subtitle: Text(personData!['primer_apellido'] ?? 'N/A',
-                    style: TextStyle(color: colorApp.secondary)),
+                title: Text(
+                  'Apellido',
+                  style: TextStyle(
+                    color: colorApp.primary,
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                subtitle: Text(
+                  personData!['primer_apellido'] ?? 'N/A',
+                  style: TextStyle(
+                    color: colorApp.secondary,
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ),
               // Agrega más ListTile según sea necesario
+              const SizedBox(
+                  height: 60), // Añade un espacio vertical antes del botón
               Center(
                 child: FilledButton(
                   onPressed: () {
                     // Lógica para iniciar el escáner
                   },
-                  child: Text('Iniciar Scanner'),
+                  child: const Text(
+                    'Iniciar Scanner',
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ),
             ],
           )
-        : Center(child: CircularProgressIndicator());
+        : const Center(child: CircularProgressIndicator());
   }
 }
