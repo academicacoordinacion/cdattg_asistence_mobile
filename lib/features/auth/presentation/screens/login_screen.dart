@@ -1,3 +1,4 @@
+import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/datasource/auth_datasource.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_servive.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,12 @@ class _LoginScreenState extends State<LoginScreen> {
           'ingresar credenciales',
           style: TextStyle(color: Colors.teal, fontSize: 20),
         ),
-        leading: Icon(Icons.home, color: colorApp.primary),
+        leading: IconButton(
+          icon: Icon(Icons.home, color: colorApp.primary),
+          onPressed: () {
+            routerApp.go('/');
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -47,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 20), // Add some space at the top
+                const SizedBox(height: 10), // Add some space at the top
                 TextFormField(
                   controller: _useremailController,
                   decoration: InputDecoration(
@@ -79,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 FilledButton(
                     onPressed: () => _loginLogic.login(context),
                     child: const Icon(Icons.login_sharp))

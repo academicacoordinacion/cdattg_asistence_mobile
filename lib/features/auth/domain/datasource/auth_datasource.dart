@@ -28,7 +28,19 @@ class AuhtDataSource {
       } else {
         // Muestra un SnackBar de error
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login failed. Please try again.')),
+          SnackBar(
+            content: const Text(
+              'error de inicio de sesión',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            margin: EdgeInsets.symmetric(horizontal: 20.0),
+            duration: Duration(seconds: 2), // Duración de 3 segundos
+          ),
         );
       }
     }
