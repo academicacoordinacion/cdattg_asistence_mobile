@@ -1,12 +1,16 @@
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/widgets/auth/instructor_data_list.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
-class AsistenceScreen extends StatelessWidget {
-  const AsistenceScreen({super.key});
+class InstructorScreen extends StatelessWidget {
+  const InstructorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colorApp = Theme.of(context).colorScheme;
+    final authService = AuthService(); // Crear una instancia de AuthService
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -30,6 +34,7 @@ class AsistenceScreen extends StatelessWidget {
           ),
         ],
       ),
+      body: InstructorDataList(authService: authService),
     );
   }
 }

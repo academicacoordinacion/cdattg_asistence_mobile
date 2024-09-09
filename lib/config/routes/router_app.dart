@@ -1,4 +1,4 @@
-import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/asistence_screen.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/instructor_screen.dart.dart';
 import 'package:cdattg_sena_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:cdattg_sena_mobile/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ final GoRouter routerApp = GoRouter(
     GoRoute(
       path: '/asistence-scan',
       builder: (BuildContext context, GoRouterState state) {
-        return const AsistenceScreen();
+        return const InstructorScreen();
       },
     ),
     // Agrega más rutas aquí

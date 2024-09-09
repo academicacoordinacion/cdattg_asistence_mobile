@@ -1,5 +1,5 @@
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
-import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_servive.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class AuhtDataSource {
