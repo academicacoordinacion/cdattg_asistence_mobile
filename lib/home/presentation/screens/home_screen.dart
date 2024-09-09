@@ -6,39 +6,66 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorApp = Theme.of(context).colorScheme;
+    final appColor = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('CDTTGA MOBILE', style: TextStyle(color: colorApp.primary)),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.supervised_user_circle, size: 50),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                routerApp.go('/login'); // Go to Login
-              },
-              child: const Text('Inciar sesión'),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: const BottomAppBar(
-        // Set secondary background color
-        child: SizedBox(
-          height: 50,
-          child: Center(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Text(
-              'AGROIDUSTRIA Y TECNOLOGÍA',
-              style: TextStyle(),
+              'CDATTG MOBILE',
+              style: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 22,
+                color: appColor.primary,
+              ),
             ),
           ),
         ),
-      ),
-    );
+        body: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 50),
+          child: Center(
+            child: Column(
+              children: [
+                Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqNShshQtVwuUvPYKggWuexaA2qArJwN495qs2j7CF0aYeIOl3vhkCka-EJOfouEfZFnc&usqp=CAU',
+                  height: 100,
+                ),
+                Expanded(
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 70),
+                      child: ListTile(
+                        leading: Icon(Icons.supervised_user_circle_rounded,
+                            color: appColor.primary),
+                        title: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text('Iniciar sesión',
+                              style: TextStyle(color: appColor.primary)),
+                        ),
+                        onTap: () {
+                          routerApp.go('/login');
+                        },
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: appColor.primary,
+                        ),
+                      )),
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      'Agroindustria y Tecnología Guaviare',
+                      style: TextStyle(
+                        color: appColor.primary,
+                        fontFamily: 'OpenSans',
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }
