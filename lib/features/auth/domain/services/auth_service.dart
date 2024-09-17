@@ -90,6 +90,14 @@ class AuthService {
     }
   }
 
+  String? getUserId() {
+    final userId = _user?['id'];
+    if (userId != null) {
+      return userId.toString();
+    }
+    return null;
+  }
+
   // Método de logout
   Future<void> logout() async {
     _token = null;

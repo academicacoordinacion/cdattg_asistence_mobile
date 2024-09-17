@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/start_scaner_service.dart';
+import 'package:dio/dio.dart';
+import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 
 class InstructorDataList extends StatefulWidget {
   final AuthService authService;
 
-  InstructorDataList({required this.authService});
+  const InstructorDataList({super.key, required this.authService});
 
   @override
   _InstructorDataListState createState() => _InstructorDataListState();
@@ -28,6 +31,27 @@ class _InstructorDataListState extends State<InstructorDataList> {
     });
   }
 
+  Future<void> _startScanner(BuildContext context) async {
+    final dio = Dio();
+    final startScanerService =
+        StartScanerService(authService: widget.authService, dio: dio);
+
+    final data = await startScanerService.fetchDataFromApi();
+
+    if (data != null) {
+      // Redirigir a otra pantalla
+      routerApp.push('/start-scan');
+    } else {
+      // Mostrar SnackBar de error
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Error al iniciar el escáner. Por favor, inténtelo de nuevo.'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorApp = Theme.of(context).colorScheme;
@@ -35,79 +59,71 @@ class _InstructorDataListState extends State<InstructorDataList> {
         ? ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              ListTile(
-                title: Text(
-                  'Correo',
-                  style: TextStyle(
-                    color: colorApp.primary,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+              Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      'Correo',
+                      style: TextStyle(
+                        color: colorApp.primary,
+                        fontFamily: 'OpenSans',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      userData!['email'] ?? 'N/A',
+                      style: TextStyle(
+                        color: colorApp.primary,
+                        fontFamily: 'OpenSans',
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  userData!['email'] ?? 'N/A',
-                  style: TextStyle(color: colorApp.secondary),
-                ),
+                  Divider(color: colorApp.primary),
+                  ListTile(
+                    title: Text(
+                      'Nombre',
+                      style: TextStyle(
+                        color: colorApp.primary,
+                        fontFamily: 'OpenSans',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      personData!['primer_nombre'] ?? 'N/A',
+                      style: TextStyle(
+                        color: colorApp.primary,
+                        fontFamily: 'OpenSans',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Divider(color: colorApp.primary),
+                ],
               ),
-              ListTile(
-                title: Text(
-                  'Nombre',
-                  style: TextStyle(
-                    color: colorApp.primary,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                subtitle: Text(
-                  personData!['primer_nombre'] ?? 'N/A',
-                  style: TextStyle(
-                    color: colorApp.secondary,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  'Apellido',
-                  style: TextStyle(
-                    color: colorApp.primary,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                subtitle: Text(
-                  personData!['primer_apellido'] ?? 'N/A',
-                  style: TextStyle(
-                    color: colorApp.secondary,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              // Agrega más ListTile según sea necesario
-              const SizedBox(
-                  height: 60), // Añade un espacio vertical antes del botón
-              Center(
-                child: FilledButton(
-                  onPressed: () {
-                    // Lógica para iniciar el escáner
-                  },
+
+              const SizedBox(height: 40), // Espacio adicional
+
+              SizedBox(
+                width: 100, // Ajusta el ancho según sea necesario
+                child: FloatingActionButton(
+                  onPressed: () => _startScanner(context),
+                  backgroundColor: colorApp.primary,
                   child: const Text(
-                    'Iniciar Scanner',
+                    'Iniciar Scaner',
                     style: TextStyle(
                       fontFamily: 'OpenSans',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 18,
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
+
+              const SizedBox(height: 50), // Espacio adicional
+              // Agrega más ListTile según sea necesario
             ],
           )
         : const Center(child: CircularProgressIndicator());

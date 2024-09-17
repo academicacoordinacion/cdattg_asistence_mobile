@@ -38,8 +38,8 @@ class AuhtDataSource {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            margin: EdgeInsets.symmetric(horizontal: 20.0),
-            duration: Duration(seconds: 2), // Duración de 3 segundos
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            duration: const Duration(seconds: 2), // Duración de 3 segundos
           ),
         );
       }
