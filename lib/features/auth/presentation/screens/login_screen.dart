@@ -1,7 +1,7 @@
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
-import 'package:cdattg_sena_mobile/features/auth/domain/datasource/auth_datasource.dart';
-import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/datasource/auth_datasource.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,86 +11,132 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _useremailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
-  late AuhtDataSource _loginLogic;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  late final AuhtDataSource _loginLogic;
 
   @override
   void initState() {
     super.initState();
     _loginLogic = AuhtDataSource(
       formKey: _formKey,
-      usernameController: _useremailController,
+      emailController: _emailController,
       passwordController: _passwordController,
-      authService: _authService,
+      authService: AuthService(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final colorApp = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'ingresar credenciales',
-          style: TextStyle(color: colorApp.primary, fontSize: 20),
+          'Iniciar Sesión',
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.home, color: colorApp.primary),
-          onPressed: () {
-            routerApp.go('/');
-          },
-        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            onPressed: () {
+              routerApp.go('/');
+            },
+          ),
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 10), // Add some space at the top
-                TextFormField(
-                  controller: _useremailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Correo',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'campo requerido';
-                    }
-                    return null;
-                  },
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      )),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'campo requerido';
-                    }
-                    return null;
-                  },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese su correo electrónico';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Contraseña',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 10),
-                FilledButton(
-                    onPressed: () => _loginLogic.login(context),
-                    child: const Icon(Icons.login_sharp))
-              ],
-            ),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor ingrese su contraseña';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  minimumSize: Size(MediaQuery.of(context).size.width * 0.5,
+                      50), // 50% width and height of 50
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20), // Add horizontal padding
+                ),
+                onPressed: () => _loginLogic.login(context),
+                child: const Text(
+                  'Ingresar',
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

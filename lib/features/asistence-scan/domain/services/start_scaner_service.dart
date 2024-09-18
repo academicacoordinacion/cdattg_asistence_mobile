@@ -10,8 +10,8 @@ class StartScanerService {
 
   StartScanerService({required this.authService, required this.dio}) {
     // Configurar tiempo de espera
-    dio.options.connectTimeout = const Duration(seconds: 10); // 10 segundos
-    dio.options.receiveTimeout = const Duration(seconds: 10); // 10 segundos
+    // dio.options.connectTimeout = const Duration(seconds: 10); // 10 segundos
+    // dio.options.receiveTimeout = const Duration(seconds: 10); // 10 segundos
   }
 
   Future<List<dynamic>?> fetchDataFromApi() async {

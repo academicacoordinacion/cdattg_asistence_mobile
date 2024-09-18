@@ -59,55 +59,70 @@ class _InstructorDataListState extends State<InstructorDataList> {
         ? ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      'Correo',
-                      style: TextStyle(
-                        color: colorApp.primary,
-                        fontFamily: 'OpenSans',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+              const SizedBox(
+                height: 40,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        'Correo',
+                        style: TextStyle(
+                          color: colorApp.primary,
+                          fontFamily: 'OpenSans',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        userData!['email'] ?? 'N/A',
+                        style: TextStyle(
+                          color: colorApp.primary,
+                          fontFamily: 'OpenSans',
+                          fontSize: 16,
+                        ),
                       ),
                     ),
-                    subtitle: Text(
-                      userData!['email'] ?? 'N/A',
-                      style: TextStyle(
-                        color: colorApp.primary,
-                        fontFamily: 'OpenSans',
-                        fontSize: 16,
+                    Divider(color: colorApp.primary),
+                    ListTile(
+                      title: Text(
+                        'Nombre',
+                        style: TextStyle(
+                          color: colorApp.primary,
+                          fontFamily: 'OpenSans',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        personData!['primer_nombre'] ?? 'N/A',
+                        style: TextStyle(
+                          color: colorApp.primary,
+                          fontFamily: 'OpenSans',
+                          fontSize: 16,
+                        ),
                       ),
                     ),
-                  ),
-                  Divider(color: colorApp.primary),
-                  ListTile(
-                    title: Text(
-                      'Nombre',
-                      style: TextStyle(
-                        color: colorApp.primary,
-                        fontFamily: 'OpenSans',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Text(
-                      personData!['primer_nombre'] ?? 'N/A',
-                      style: TextStyle(
-                        color: colorApp.primary,
-                        fontFamily: 'OpenSans',
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  Divider(color: colorApp.primary),
-                ],
+                  ],
+                ),
               ),
 
               const SizedBox(height: 40), // Espacio adicional
 
               SizedBox(
-                width: 100, // Ajusta el ancho según sea necesario
+                width: 60, // Ajusta el ancho según sea necesario
                 child: FloatingActionButton(
                   onPressed: () => _startScanner(context),
                   backgroundColor: colorApp.primary,

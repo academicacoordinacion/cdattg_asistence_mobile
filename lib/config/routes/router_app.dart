@@ -29,7 +29,7 @@ final GoRouter routerApp = GoRouter(
     GoRoute(
       path: '/start-scan',
       builder: (BuildContext context, GoRouterState state) {
-        return StartScanerScreen();
+        return const StartScanerScreen();
       },
     ),
     // Agrega más rutas aquí

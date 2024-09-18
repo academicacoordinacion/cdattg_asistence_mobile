@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/start_scaner_service.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:dio/dio.dart';
+import 'attendance_screen.dart';
 
 class StartScanerScreen extends StatefulWidget {
   const StartScanerScreen({super.key});
@@ -72,16 +73,37 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
     }
   }
 
+  void _navigateToAttendanceScreen(dynamic selectedBoxData) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            AttendanceScreen(selectedBoxData: selectedBoxData),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Caracterización'),
+        centerTitle: true,
+        title: Text(
+          'Caracterización',
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontFamily: 'OpenSans',
+            fontSize: 22,
+          ),
+        ),
       ),
       body: scanerData == null
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
+                SizedBox(
+                  height: 20,
+                ),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
@@ -131,6 +153,23 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                   });
                                 },
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: ElevatedButton(
+                                  onPressed: () =>
+                                      _navigateToAttendanceScreen(item),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                    textStyle: const TextStyle(
+                                      fontFamily: 'OpenSans',
+                                      fontSize: 16,
+                                    ),
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  child: const Text('Tomar Asistencia'),
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -140,13 +179,14 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButton(
-                    onPressed: _saveSelectedItems,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
+                  child: Text(
+                    'Agroíndustria y Tecnología Guaviare',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontFamily: 'OpenSans',
+                      fontSize: 16,
                     ),
-                    child: const Text('Guardar Selección'),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

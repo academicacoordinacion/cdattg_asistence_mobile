@@ -10,6 +10,12 @@ class AuthService {
   Map<String, dynamic>? _person;
   Dio dio = Dio();
 
+  AuthService()
+      : dio = Dio(BaseOptions(
+          connectTimeout: const Duration(seconds: 30), // 5 segundos
+          receiveTimeout: const Duration(seconds: 30), // 3 segundos
+        ));
+
   // Método para obtener el token
   String? getToken() {
     return _token;
