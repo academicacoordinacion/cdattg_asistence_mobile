@@ -13,10 +13,18 @@ class AttendanceScreen extends StatefulWidget {
 class _AttendanceScreenState extends State<AttendanceScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   List<String> attendanceList = [];
+  QRViewController? controller;
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
 
   void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      if (scanData.code != null) {
+      if (scanData.code != null && !attendanceList.contains(scanData.code)) {
         setState(() {
           attendanceList.add(scanData.code!);
         });
@@ -26,6 +34,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   void _saveData() {
     // Implement your save data logic here
+    // For example, you can send the attendanceList to your backend server
+    print('Attendance List: $attendanceList');
   }
 
   @override
@@ -44,13 +54,16 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       body: Column(
         children: [
           Expanded(
-            flex: 1,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Theme.of(context).colorScheme.secondary,
-              child: const Center(
-                child: Text('cdattg'),
+            flex: 2,
+            child: QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
+              overlay: QrScannerOverlayShape(
+                borderColor: Theme.of(context).colorScheme.primary,
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
+                cutOutSize: 200,
               ),
             ),
           ),
@@ -59,15 +72,31 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             child: ListView.builder(
               itemCount: attendanceList.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(attendanceList[index]),
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                    title: Text(attendanceList[index]),
+                  ),
                 );
               },
             ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              iconColor: Theme.of(context).primaryColor,
               textStyle: const TextStyle(
                 fontFamily: 'OpenSans',
                 color: Colors.white,
