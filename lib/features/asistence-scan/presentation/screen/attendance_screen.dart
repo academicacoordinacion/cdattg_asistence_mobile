@@ -1,9 +1,9 @@
 import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
+import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/exit_data.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/scan_alerts.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:dio/dio.dart';
 
@@ -114,6 +114,16 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              // Implement your logout functionality here
+              authService.logout();
+              routerApp.go('/');
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -154,7 +164,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     ],
                   ),
                   child: ListTile(
-                    title: Text('${item['nombres']} ${item['apellidos']}'),
+                    title: Text(
+                        'Nombres: ${item['nombres']}\nApellidos: ${item['apellidos']}'),
                     subtitle: Text(
                         'ID: ${item['numero_identificacion']}\nHora de Ingreso: ${item['hora_ingreso']}'),
                   ),
@@ -191,7 +202,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     ),
                   ),
                   onPressed: () {
-                    // Implementar la lógica para finalizar la formación aquí
                     _exitData.finishFormation(widget.selectedBoxData['id']);
                   },
                   child: const Text('Finalizar Formación',
