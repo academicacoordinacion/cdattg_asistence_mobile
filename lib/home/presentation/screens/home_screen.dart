@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Center(
                   child: Container(
                     height: 70,

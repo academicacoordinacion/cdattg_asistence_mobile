@@ -101,7 +101,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Expanded(

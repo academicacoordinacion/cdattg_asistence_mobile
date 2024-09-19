@@ -1,19 +1,26 @@
+import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/exit_data.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/scan_alerts.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:dio/dio.dart';
 
 class AttendanceScreen extends StatefulWidget {
   final dynamic selectedBoxData;
-
   const AttendanceScreen({super.key, required this.selectedBoxData});
-
   @override
   _AttendanceScreenState createState() => _AttendanceScreenState();
 }
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  List<String> attendanceList = [];
+  List<Map<String, String>> attendanceList = [];
   QRViewController? controller;
+  AuthService authService = AuthService(); // Instancia de AuthService
+  final ScanAlerts scanAlerts = ScanAlerts();
+  final ExitData _exitData = ExitData();
 
   @override
   void dispose() {
@@ -24,18 +31,75 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      if (scanData.code != null && !attendanceList.contains(scanData.code)) {
-        setState(() {
-          attendanceList.add(scanData.code!);
-        });
+      if (scanData.code != null) {
+        // Parse the scanned data (assuming it's a delimited string)
+        final data = parseQRCode(scanData.code!);
+        if (data != null &&
+            !attendanceList.any((item) =>
+                item['numero_identificacion'] ==
+                data['numero_identificacion'])) {
+          setState(() {
+            data['hora_ingreso'] = DateTime.now().toIso8601String();
+            attendanceList.add(data);
+          });
+        }
       }
     });
   }
 
-  void _saveData() {
-    // Implement your save data logic here
-    // For example, you can send the attendanceList to your backend server
-    print('Attendance List: $attendanceList');
+  Map<String, String>? parseQRCode(String code) {
+    try {
+      final parts = code.split('|');
+      if (parts.length >= 3) {
+        return {
+          'nombres': parts[0],
+          'apellidos': parts[1],
+          'numero_identificacion': parts[2],
+        };
+      } else {
+        scanAlerts.WrongToast('Error: QR code does not contain enough parts');
+        return null;
+      }
+    } catch (e) {
+      scanAlerts.WrongToast('Error parsing QR code: $e');
+      return null;
+    }
+  }
+
+  Future<void> _saveData() async {
+    final dio = Dio();
+    final url = '${Environment.apiUrl}/asistencia/store';
+
+    try {
+      authService.loadData();
+      final token = authService.getToken();
+      print('Token: $token');
+      final response = await dio.post(url,
+          data: {
+            'caracterizacion_id': widget.selectedBoxData['id'],
+            'attendance': attendanceList,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+            },
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          ));
+
+      if (response.statusCode == 200) {
+        scanAlerts.SuccessToast('Lista de asistencia guardada con éxito');
+        print('Response data: ${response.data}');
+      } else if (response.statusCode == 302) {
+        scanAlerts.WrongToast('Redirección detectada. Error: 302');
+      } else {
+        scanAlerts.WrongToast('Error de recepcion de datos');
+      }
+    } catch (e) {
+      scanAlerts.WrongToast('Fallo al guardar asistencia: $e');
+    }
   }
 
   @override
@@ -72,6 +136,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             child: ListView.builder(
               itemCount: attendanceList.length,
               itemBuilder: (context, index) {
+                final item = attendanceList[index];
                 return Container(
                   margin:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -89,21 +154,51 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     ],
                   ),
                   child: ListTile(
-                    title: Text(attendanceList[index]),
+                    title: Text('${item['nombres']} ${item['apellidos']}'),
+                    subtitle: Text(
+                        'ID: ${item['numero_identificacion']}\nHora de Ingreso: ${item['hora_ingreso']}'),
                   ),
                 );
               },
             ),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              textStyle: const TextStyle(
-                fontFamily: 'OpenSans',
-                color: Colors.white,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    textStyle: const TextStyle(
+                      fontFamily: 'OpenSans',
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: _saveData,
+                  child: const Text('Guardar Asistencia',
+                      style: TextStyle(color: Colors.white)),
+                ),
               ),
-            ),
-            onPressed: _saveData,
-            child: const Text('Guardar Asistencia'),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    textStyle: const TextStyle(
+                      fontFamily: 'OpenSans',
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    // Implementar la lógica para finalizar la formación aquí
+                    _exitData.finishFormation(widget.selectedBoxData['id']);
+                  },
+                  child: const Text('Finalizar Formación',
+                      style: TextStyle(color: Colors.white)),
+                ),
+              ),
+            ],
           ),
         ],
       ),
