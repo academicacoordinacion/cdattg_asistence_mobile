@@ -57,7 +57,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           'numero_identificacion': parts[2],
         };
       } else {
-        scanAlerts.WrongToast('Error: QR code does not contain enough parts');
+        scanAlerts.WrongToast('Error: QR sin contenido válido');
         return null;
       }
     } catch (e) {
@@ -92,8 +92,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       if (response.statusCode == 200) {
         scanAlerts.SuccessToast('Lista de asistencia guardada con éxito');
         print('Response data: ${response.data}');
-      } else if (response.statusCode == 302) {
-        scanAlerts.WrongToast('Redirección detectada. Error: 302');
+      } else if (response.statusCode == 200) {
+        scanAlerts.SuccessToast('Lista de asistencia guardada con éxito');
+        print('Response data: ${response.data}');
       } else {
         scanAlerts.WrongToast('Error de recepcion de datos');
       }
@@ -116,7 +117,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               // Implement your logout functionality here
               authService.logout();

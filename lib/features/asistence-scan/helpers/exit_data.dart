@@ -15,7 +15,7 @@ class ExitData {
 
     try {
       authService.loadData();
-      final token = await authService.getToken();
+      final token = authService.getToken();
       print('Token: $token');
       print('Sending data to $url');
       print('Data: ${{
@@ -44,9 +44,9 @@ class ExitData {
         print('Hora de salida guardada exitosamente');
         print('Response data: ${response.data}');
         scanAlert.SuccessToast('Hora de salida guardada exitosamente');
-      } else if (response.statusCode == 302) {
+      } else if (response.statusCode == 200) {
         print('Redirección detectada: Error 302');
-        scanAlert.WrongToast('Redirección detectada');
+        scanAlert.SuccessToast('Hora de salida guardada exitosamente');
       } else {
         print('Failed to save hora de salida');
         scanAlert.WrongToast('Error al guardar la hora de salida');

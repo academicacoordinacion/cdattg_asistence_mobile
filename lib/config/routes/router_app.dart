@@ -35,7 +35,7 @@ final GoRouter routerApp = GoRouter(
     GoRoute(
       path: '/instructor-screen',
       builder: (BuildContext context, GoRouterState state) {
-        return InstructorScreen();
+        return const InstructorScreen();
       },
     ),
     // Agrega más rutas aquí
