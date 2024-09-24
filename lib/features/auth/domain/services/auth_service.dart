@@ -50,7 +50,6 @@ class AuthService {
         _person = response.data['persona'];
 
         if (_token != null && _user != null) {
-          // Guardar datos en SharedPreferences
           await storeData();
           return true;
         }
@@ -66,7 +65,6 @@ class AuthService {
     return false;
   }
 
-  // Método para almacenar datos en SharedPreferences
   Future<void> storeData() async {
     final prefs = await SharedPreferences.getInstance();
     if (_token != null) {
@@ -80,7 +78,6 @@ class AuthService {
     }
   }
 
-  // Método para cargar datos desde SharedPreferences
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
@@ -104,7 +101,6 @@ class AuthService {
     return null;
   }
 
-  // Método de logout
   Future<void> logout() async {
     _token = null;
     _user = null;

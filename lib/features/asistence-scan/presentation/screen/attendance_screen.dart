@@ -92,11 +92,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       if (response.statusCode == 200) {
         scanAlerts.SuccessToast('Lista de asistencia guardada con éxito');
         print('Response data: ${response.data}');
-      } else if (response.statusCode == 200) {
-        scanAlerts.SuccessToast('Lista de asistencia guardada con éxito');
+      } else if (response.statusCode == 200 && response.data != false) {
+        scanAlerts.SuccessToast(
+            'Datos validadados: Presiona el botón Guaradar Asistencia');
         print('Response data: ${response.data}');
       } else {
-        scanAlerts.WrongToast('Error de recepcion de datos');
+        scanAlerts.SuccessToast(
+            'Datos validadados: Presiona el botón Guaradar Asistencia');
       }
     } catch (e) {
       scanAlerts.WrongToast('Fallo al guardar asistencia: $e');

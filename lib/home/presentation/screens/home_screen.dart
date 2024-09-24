@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 50),
+          margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 40),
           child: Center(
             child: Column(
               children: [

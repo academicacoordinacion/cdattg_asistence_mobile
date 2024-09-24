@@ -143,35 +143,35 @@ class AssistenceOutScreen extends StatelessWidget {
     authService.loadData();
     final token = authService.getToken();
 
-    try {
-      final response = await dio.post(
-        url,
-        data: {
-          'caracterizacion_id': caracterizacionId,
-          'numero_identificacion': numeroIdentificacion,
-          'hora_entrada': horaEntrada,
-          'novedad': novedadController.text,
+    final response = await dio.post(
+      url,
+      data: {
+        'caracterizacion_id': caracterizacionId,
+        'numero_identificacion': numeroIdentificacion,
+        'hora_entrada': horaEntrada,
+        'novedad': novedadController.text,
+      },
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
         },
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
+      ),
+    );
 
-      print('Response data: ${response.data}');
-      print(token);
+    print('Response data: ${response.data}');
+    print(token);
 
-      if (response.statusCode == 200) {
-        scanAlerts.SuccessToast('Novedad guardada con éxito');
-      } else if (response.statusCode == 302) {
-        scanAlerts.WrongToast('Error de redirección');
-      } else if (response.statusCode == 400) {
-        scanAlerts.WrongToast('Petición no encontrada');
-      }
-    } catch (e) {
-      scanAlerts.WrongToast('Error al guardar novedad: $e');
+    if (response.data != false) {
+      scanAlerts.SuccessToast('Novedad guardada con éxito');
+    }
+
+    if (response.statusCode == 200 && response.data != false) {
+      scanAlerts.SuccessToast('Novedad guardada con éxito');
+    }
+
+    if (response.statusCode != 200 && response.data == false) {
+      scanAlerts.WrongToast('Error al guardar novedad');
     }
   }
 }

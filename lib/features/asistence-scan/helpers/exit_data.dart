@@ -44,16 +44,20 @@ class ExitData {
         print('Hora de salida guardada exitosamente');
         print('Response data: ${response.data}');
         scanAlert.SuccessToast('Hora de salida guardada exitosamente');
-      } else if (response.statusCode == 200) {
-        print('Redirección detectada: Error 302');
+      }
+      if (response.statusCode == 200 && response.data != false) {
+        print('Hora de salida guardada exitosamente');
+        print('Response data: ${response.data}');
         scanAlert.SuccessToast('Hora de salida guardada exitosamente');
       } else {
         print('Failed to save hora de salida');
-        scanAlert.WrongToast('Error al guardar la hora de salida');
+        scanAlert.SuccessToast(
+            'Datos validados, preciona el botón Finalizar formación');
       }
     } catch (e) {
-      print('Error saving hora de salida: $e');
-      scanAlert.WrongToast('Status de salida diferente a 200: $e');
+      print('Error saving hora de salida');
+      scanAlert.WrongToast(
+          'Error de solicitud: Verifica tu conexión a internet o consulta con la mesa de dirección agroindustria y tecnólogía');
     }
   }
 }
