@@ -1,3 +1,4 @@
+import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/assistence_out_screen.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/instructor_screen.dart.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/start_scaner_screen.dart';
 import 'package:cdattg_sena_mobile/features/auth/presentation/screens/login_screen.dart';
@@ -36,6 +37,16 @@ final GoRouter routerApp = GoRouter(
       path: '/instructor-screen',
       builder: (BuildContext context, GoRouterState state) {
         return const InstructorScreen();
+      },
+    ),
+    GoRoute(
+      path: '/assistence-out',
+      builder: (BuildContext context, GoRouterState state) {
+        final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+        return AssistenceOutScreen(
+          caracterizacionId: extra['caracterizacion_id'] as String,
+          numeroIdentificacion: extra['numero_identificacion'] as String,
+        );
       },
     ),
     // Agrega más rutas aquí

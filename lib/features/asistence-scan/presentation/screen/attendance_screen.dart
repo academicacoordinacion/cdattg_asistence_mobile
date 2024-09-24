@@ -164,11 +164,44 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       ),
                     ],
                   ),
-                  child: ListTile(
-                    title: Text(
-                        'Nombres: ${item['nombres']}\nApellidos: ${item['apellidos']}'),
-                    subtitle: Text(
-                        'ID: ${item['numero_identificacion']}\nHora de Ingreso: ${item['hora_ingreso']}'),
+                  child: Stack(
+                    children: [
+                      ListTile(
+                        title: Text(
+                            'Nombres: ${item['nombres']}\nApellidos: ${item['apellidos']}'),
+                        subtitle: Text(
+                            'ID: ${item['numero_identificacion']}\nHora de Ingreso: ${item['hora_ingreso']}'),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: PopupMenuButton<String>(
+                          onSelected: (value) {
+                            if (value == 'Novedad Salida') {
+                              routerApp.push(
+                                '/assistence-out',
+                                extra: {
+                                  'caracterizacion_id':
+                                      widget.selectedBoxData['id'].toString(),
+                                  'numero_identificacion':
+                                      item['numero_identificacion'],
+                                },
+                              );
+                            }
+                          },
+                          itemBuilder: (BuildContext context) {
+                            return {
+                              'Novedad Salida',
+                            }.map((String choice) {
+                              return PopupMenuItem<String>(
+                                value: choice,
+                                child: Text(choice),
+                              );
+                            }).toList();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
