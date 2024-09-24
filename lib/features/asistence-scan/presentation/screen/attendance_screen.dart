@@ -185,6 +185,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                       widget.selectedBoxData['id'].toString(),
                                   'numero_identificacion':
                                       item['numero_identificacion'],
+                                  'hora_entrada': item['hora_ingreso']
+                                      .toString(), // Asegúrate de que este valor esté disponible
                                 },
                               );
                             }

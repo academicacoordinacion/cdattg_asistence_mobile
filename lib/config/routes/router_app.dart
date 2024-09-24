@@ -46,6 +46,7 @@ final GoRouter routerApp = GoRouter(
         return AssistenceOutScreen(
           caracterizacionId: extra['caracterizacion_id'] as String,
           numeroIdentificacion: extra['numero_identificacion'] as String,
+          horaEntrada: extra['hora_entrada'] as String,
         );
       },
     ),

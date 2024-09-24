@@ -1,12 +1,13 @@
-import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
-import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/scan_alerts.dart';
-import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/scan_alerts.dart';
 
 class AssistenceOutScreen extends StatelessWidget {
   final String caracterizacionId;
   final String numeroIdentificacion;
+  final String horaEntrada;
   final TextEditingController novedadController = TextEditingController();
   final ScanAlerts scanAlerts = ScanAlerts();
   final _formKey = GlobalKey<FormState>();
@@ -16,6 +17,7 @@ class AssistenceOutScreen extends StatelessWidget {
     Key? key,
     required this.caracterizacionId,
     required this.numeroIdentificacion,
+    required this.horaEntrada,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,7 @@ class AssistenceOutScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -58,6 +60,20 @@ class AssistenceOutScreen extends StatelessWidget {
                 initialValue: numeroIdentificacion,
                 decoration: InputDecoration(
                   labelText: 'Número de Identificación',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+                readOnly: true,
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                initialValue: horaEntrada,
+                decoration: InputDecoration(
+                  labelText: 'Hora de Entrada',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide(
@@ -123,7 +139,7 @@ class AssistenceOutScreen extends StatelessWidget {
   Future<void> _saveNovedad(BuildContext context) async {
     final dio = Dio();
     final url = '${Environment.apiUrl}/asistencia/novedad';
-    final ScanAlerts alert = ScanAlerts();
+    final ScanAlerts scanAlerts = ScanAlerts();
     authService.loadData();
     final token = authService.getToken();
 
@@ -133,6 +149,7 @@ class AssistenceOutScreen extends StatelessWidget {
         data: {
           'caracterizacion_id': caracterizacionId,
           'numero_identificacion': numeroIdentificacion,
+          'hora_entrada': horaEntrada,
           'novedad': novedadController.text,
         },
         options: Options(
@@ -143,15 +160,18 @@ class AssistenceOutScreen extends StatelessWidget {
         ),
       );
 
+      print('Response data: ${response.data}');
+      print(token);
+
       if (response.statusCode == 200) {
-        alert.SuccessToast('Novedad guardada con éxito');
+        scanAlerts.SuccessToast('Novedad guardada con éxito');
       } else if (response.statusCode == 302) {
-        alert.WrongToast('Novedad guardada con éxito');
-      } else {
-        alert.WrongToast('Error de recepción de datos');
+        scanAlerts.WrongToast('Error de redirección');
+      } else if (response.statusCode == 400) {
+        scanAlerts.WrongToast('Petición no encontrada');
       }
     } catch (e) {
-      alert.WrongToast('Fallo al guardar novedad: $e');
+      scanAlerts.WrongToast('Error al guardar novedad: $e');
     }
   }
 }
