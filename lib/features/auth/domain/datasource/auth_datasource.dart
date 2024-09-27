@@ -24,7 +24,6 @@ class AuhtDataSource {
       try {
         final success = await authService.authenticate(email, password);
         print(success);
-        print('hola');
 
         if (success == true) {
           print('Email: $email, Password: $password');

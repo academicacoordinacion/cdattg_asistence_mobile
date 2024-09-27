@@ -14,11 +14,11 @@ class AssistenceOutScreen extends StatelessWidget {
   final AuthService authService = AuthService();
 
   AssistenceOutScreen({
-    Key? key,
+    super.key,
     required this.caracterizacionId,
     required this.numeroIdentificacion,
     required this.horaEntrada,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
