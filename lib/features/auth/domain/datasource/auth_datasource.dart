@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:dio/dio.dart';
@@ -23,10 +25,8 @@ class AuhtDataSource {
 
       try {
         final success = await authService.authenticate(email, password);
-        print(success);
 
         if (success == true) {
-          print('Email: $email, Password: $password');
           // Redirige a la pantalla de inicio usando GoRouter
           if (context.mounted) {
             routerApp.go('/asistence-scan');

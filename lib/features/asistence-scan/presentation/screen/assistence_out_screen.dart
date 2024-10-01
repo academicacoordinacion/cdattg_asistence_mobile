@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -159,7 +161,6 @@ class AssistenceOutScreen extends StatelessWidget {
       ),
     );
 
-    print('Response data: ${response.data}');
     print(token);
 
     if (response.data != false) {

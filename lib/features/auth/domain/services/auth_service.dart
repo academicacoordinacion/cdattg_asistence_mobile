@@ -42,8 +42,6 @@ class AuthService {
         },
       );
 
-      print('Response data: ${response.data}');
-
       if (response.statusCode == 200) {
         _token = response.data['token'];
         _user = response.data['user'];
@@ -54,11 +52,9 @@ class AuthService {
           return true;
         }
       } else {
-        print('Unexpected status code: ${response.statusCode}');
         return false;
       }
     } catch (e) {
-      print('Error: $e');
       return false;
     }
 

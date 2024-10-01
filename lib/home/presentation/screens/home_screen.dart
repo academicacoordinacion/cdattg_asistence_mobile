@@ -57,14 +57,16 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 70,
+                alignment: Alignment.center,
+                height: 80,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
                   'Agroindustria y Tecnología Guaviare',
                   style: TextStyle(
-                    color: appColor.primary,
-                    fontFamily: 'OpenSans',
-                  ),
+                      color: appColor.primary,
+                      fontFamily: 'OpenSans',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ],

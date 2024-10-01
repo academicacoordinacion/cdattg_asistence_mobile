@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/exit_data.dart';
@@ -73,7 +75,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     try {
       authService.loadData();
       final token = authService.getToken();
-      print('Token: $token');
       final response = await dio.post(url,
           data: {
             'caracterizacion_id': widget.selectedBoxData['id'],
@@ -91,11 +92,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
       if (response.statusCode == 200) {
         scanAlerts.SuccessToast('Lista de asistencia guardada con éxito');
-        print('Response data: ${response.data}');
       } else if (response.statusCode == 200 && response.data != false) {
         scanAlerts.SuccessToast(
             'Datos validadados: Presiona el botón Guaradar Asistencia');
-        print('Response data: ${response.data}');
       } else {
         scanAlerts.SuccessToast(
             'Datos validadados: Presiona el botón Guaradar Asistencia');

@@ -15,52 +15,36 @@ class StartScanerService {
   }
 
   Future<List<dynamic>?> fetchDataFromApi() async {
-    print('Loading data from SharedPreferences...');
     await authService.loadData();
     final token = authService.getToken();
     final userId = authService.getUserId();
 
-    print('Token: $token');
-    print('User ID: $userId');
-
     if (token == null) {
-      print('No token available');
       return null;
     }
 
     if (userId == null) {
-      print('No user ID available');
       return null;
     }
 
     // Usar 10.0.2.2 para emulador de Android
     final endpoint =
         '${Environment.apiUrl}/caracterizacion/byInstructor/$userId';
-    print('Endpoint: $endpoint');
 
     try {
       dio.options.headers['Authorization'] = 'Bearer $token';
 
-      // Imprimir encabezados antes de la solicitud
-      print('Request Headers: ${dio.options.headers}');
-
       final response = await dio.get(endpoint);
 
-      print('Response status: ${response.statusCode}');
-      print('Response data: ${response.data}');
-
       if (response.statusCode == 200) {
-        print('Data fetched successfully');
         final data = (response.data as List).map((e) => e).toList();
         await _saveDataToPreferences(
             data); // Guardar datos en SharedPreferences
         return data;
       } else {
-        print('Failed to fetch data: ${response.statusCode}');
         return null;
       }
     } catch (e) {
-      print('Error fetching data: $e');
       return null;
     }
   }
@@ -81,7 +65,7 @@ class StartScanerService {
 
   // Método de prueba para ver qué devuelve getDataFromPreferences
   Future<void> testGetDataFromPreferences() async {
+    // ignore: unused_local_variable
     final data = await getDataFromPreferences();
-    print('Data from preferences: $data');
   }
 }
