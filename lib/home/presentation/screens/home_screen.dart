@@ -15,10 +15,10 @@ class HomeScreen extends StatelessWidget {
             child: Text(
               'CDATTG MOBILE',
               style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 22,
-                color: appColor.primary,
-              ),
+                  fontFamily: 'OpenSans',
+                  fontSize: 22,
+                  color: appColor.primary,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -54,11 +54,15 @@ class HomeScreen extends StatelessWidget {
                 Center(
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 30),
+                    alignment: Alignment.center,
                     child: Text(
-                      'Agroindustria y Tecnología Guaviare',
+                      'AGROINDUSTRIA Y TECNOLOGÍA SENA GUAVIARE',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: appColor.primary,
                         fontFamily: 'OpenSans',
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
