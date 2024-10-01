@@ -27,8 +27,8 @@ class HomeScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Image.network(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqNShshQtVwuUvPYKggWuexaA2qArJwN495qs2j7CF0aYeIOl3vhkCka-EJOfouEfZFnc&usqp=CAU',
+                Image.asset(
+                  'assets/images/logo_sena.png',
                   height: 100,
                 ),
                 Expanded(
@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    margin: const EdgeInsets.symmetric(vertical: 30),
                     child: Text(
                       'Agroindustria y Tecnología Guaviare',
                       style: TextStyle(
