@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/start_scaner_service.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'attendance_screen.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/services.dart';
 
 class StartScanerScreen extends StatefulWidget {
   const StartScanerScreen({super.key});
@@ -155,19 +155,40 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 10.0),
-                                child: ElevatedButton(
-                                  onPressed: () =>
-                                      _navigateToAttendanceScreen(item),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                    textStyle: const TextStyle(
-                                      fontFamily: 'OpenSans',
-                                      fontSize: 16,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () =>
+                                          _navigateToAttendanceScreen(item),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                        textStyle: const TextStyle(
+                                          fontFamily: 'OpenSans',
+                                          fontSize: 16,
+                                        ),
+                                        foregroundColor: Colors.white,
+                                      ),
+                                      child: const Text('Tomar Asistencia'),
                                     ),
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  child: const Text('Tomar Asistencia'),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        ConsultList consultList = ConsultList();
+                                        try {
+                                          List<dynamic> attendanceList =
+                                              await consultList.getList(
+                                                  item['ficha'].toString());
+                                          // Aquí puedes manejar la lista de asistencia obtenida
+                                          print(attendanceList);
+                                        } catch (e) {
+                                          print('Error: $e');
+                                        }
+                                      },
+                                      child: Text('Ver Asistencia'),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
