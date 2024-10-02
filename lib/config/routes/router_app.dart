@@ -1,5 +1,6 @@
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/assistence_out_screen.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/instructor_screen.dart.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/preview_list.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/start_scaner_screen.dart';
 import 'package:cdattg_sena_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:cdattg_sena_mobile/home/presentation/screens/home_screen.dart';
@@ -50,6 +51,12 @@ final GoRouter routerApp = GoRouter(
         );
       },
     ),
-    // Agrega más rutas aquí
+    GoRoute(
+      path: '/list-consult',
+      builder: (BuildContext context, GoRouterState state) {
+        final attendanceList = state.extra as List<dynamic>;
+        return PreviewList(attendanceList: attendanceList);
+      },
+    ),
   ],
 );

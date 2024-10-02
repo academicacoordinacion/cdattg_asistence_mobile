@@ -1,3 +1,4 @@
+import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:flutter/material.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:dio/dio.dart';
@@ -140,7 +141,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  'Ficha: ${item['ficha'] ?? 'N/A'}\nInstructor: ${item['persona'] ?? 'N/A'}\nJornada: ${item['jornada'] ?? 'N/A'}\nSede: ${item['sede'] ?? 'N/A'}\n',
+                                  'Caracterizacion: ${item['id']}\nFicha: ${item['ficha'] ?? 'N/A'}\nInstructor: ${item['persona'] ?? 'N/A'}\nJornada: ${item['jornada'] ?? 'N/A'}\nSede: ${item['sede'] ?? 'N/A'}\n',
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.secondary,
@@ -179,14 +180,22 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                         try {
                                           List<dynamic> attendanceList =
                                               await consultList.getList(
-                                                  item['ficha'].toString());
-                                          // Aquí puedes manejar la lista de asistencia obtenida
-                                          print(attendanceList);
+                                                  item['ficha'].toString(),
+                                                  item['jornada'].toString());
+
+                                          if (attendanceList.isNotEmpty) {
+                                            // Redirigir a la pantalla PreviewList con la lista de asistencia
+                                            routerApp.push('/list-consult',
+                                                extra: attendanceList);
+                                          } else {
+                                            print(
+                                                'Error: La lista de asistencia está vacía');
+                                          }
                                         } catch (e) {
                                           print('Error: $e');
                                         }
                                       },
-                                      child: Text('Ver Asistencia'),
+                                      child: const Text('Ver Asistencia'),
                                     ),
                                   ],
                                 ),
@@ -201,7 +210,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Agroíndustria y Tecnología Guaviare',
+                    'Agroindustria y Tecnología Guaviare',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontFamily: 'OpenSans',
