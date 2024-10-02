@@ -25,7 +25,7 @@ class NewByPreview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 16),
+            SizedBox(height: 10),
             TextFormField(
               initialValue: item['hora_ingreso'],
               decoration: InputDecoration(
@@ -41,12 +41,12 @@ class NewByPreview extends StatelessWidget {
               ),
               style: TextStyle(
                 fontFamily: 'OpenSans',
-                fontSize: 18,
+                fontSize: 16,
                 color: Theme.of(context).colorScheme.secondary,
               ),
               readOnly: true,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 10),
             TextFormField(
               initialValue: item['nombres'],
               decoration: InputDecoration(
@@ -62,12 +62,12 @@ class NewByPreview extends StatelessWidget {
               ),
               style: TextStyle(
                 fontFamily: 'OpenSans',
-                fontSize: 18,
+                fontSize: 16,
                 color: Theme.of(context).colorScheme.secondary,
               ),
               readOnly: true,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 10),
             TextFormField(
               initialValue: item['apellidos'],
               decoration: InputDecoration(
@@ -83,12 +83,12 @@ class NewByPreview extends StatelessWidget {
               ),
               style: TextStyle(
                 fontFamily: 'OpenSans',
-                fontSize: 18,
+                fontSize: 16,
                 color: Theme.of(context).colorScheme.secondary,
               ),
               readOnly: true,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 10),
             TextFormField(
               initialValue: item['numero_identificacion'].toString(),
               decoration: InputDecoration(
@@ -109,7 +109,7 @@ class NewByPreview extends StatelessWidget {
               ),
               readOnly: true,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 10),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Novedad',
@@ -126,6 +126,31 @@ class NewByPreview extends StatelessWidget {
                 fontSize: 16,
               ),
               maxLines: 3, // This will increase the height of the TextFormField
+            ),
+            SizedBox(height: 16),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle submit action
+                },
+                child: Text(
+                  'Guardar Novedad',
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  iconColor: Theme.of(context).primaryColor,
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
