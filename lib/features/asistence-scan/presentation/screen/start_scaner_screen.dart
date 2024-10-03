@@ -1,10 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api, unused_element, use_build_context_synchronously
-
+import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:flutter/material.dart';
-import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/start_scaner_service.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'attendance_screen.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/services.dart';
 
 class StartScanerScreen extends StatefulWidget {
   const StartScanerScreen({super.key});
@@ -142,7 +141,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  'Ficha: ${item['ficha'] ?? 'N/A'}\nInstructor: ${item['persona'] ?? 'N/A'}\nJornada: ${item['jornada'] ?? 'N/A'}\nSede: ${item['sede'] ?? 'N/A'}\n',
+                                  'Caracterizacion: ${item['id']}\nFicha: ${item['ficha'] ?? 'N/A'}\nInstructor: ${item['persona'] ?? 'N/A'}\nJornada: ${item['jornada'] ?? 'N/A'}\nSede: ${item['sede'] ?? 'N/A'}\n',
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.secondary,
@@ -157,19 +156,48 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 10.0),
-                                child: ElevatedButton(
-                                  onPressed: () =>
-                                      _navigateToAttendanceScreen(item),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                    textStyle: const TextStyle(
-                                      fontFamily: 'OpenSans',
-                                      fontSize: 16,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () =>
+                                          _navigateToAttendanceScreen(item),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                        textStyle: const TextStyle(
+                                          fontFamily: 'OpenSans',
+                                          fontSize: 16,
+                                        ),
+                                        foregroundColor: Colors.white,
+                                      ),
+                                      child: const Text('Tomar Asistencia'),
                                     ),
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  child: const Text('Tomar Asistencia'),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        ConsultList consultList = ConsultList();
+                                        try {
+                                          List<dynamic> attendanceList =
+                                              await consultList.getList(
+                                                  item['ficha'].toString(),
+                                                  item['jornada'].toString());
+
+                                          if (attendanceList.isNotEmpty) {
+                                            // Redirigir a la pantalla PreviewList con la lista de asistencia
+                                            routerApp.push('/list-consult',
+                                                extra: attendanceList);
+                                          } else {
+                                            print(
+                                                'Error: La lista de asistencia está vacía');
+                                          }
+                                        } catch (e) {
+                                          print('Error: $e');
+                                        }
+                                      },
+                                      child: const Text('Novedades'),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -182,7 +210,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Agroíndustria y Tecnología Guaviare',
+                    'Agroindustria y Tecnología Guaviare',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontFamily: 'OpenSans',
