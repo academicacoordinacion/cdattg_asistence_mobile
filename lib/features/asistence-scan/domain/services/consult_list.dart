@@ -22,8 +22,6 @@ class ConsultList {
       );
 
       final status = response.statusCode;
-      print('Status: $status');
-      print('Response data: ${response.data}');
 
       if (status == 200) {
         if (response.data is List) {

@@ -74,21 +74,21 @@ class PreviewList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Ingreso: ${item['hora_ingreso']}".toString() ?? 'NA',
+                    "Ingreso: ${item['hora_ingreso']}".toString(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Nombres: ${item['nombres']}".toString() ?? 'NA',
+                    "Nombres: ${item['nombres']}".toString(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Apellidos: ${item['apellidos']}".toString() ?? 'NA',
+                    "Apellidos: ${item['apellidos']}".toString(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
@@ -96,8 +96,7 @@ class PreviewList extends StatelessWidget {
                   ),
                   Text(
                     "N° Identificación: ${item['numero_identificacion']}"
-                            .toString() ??
-                        'NA',
+                        .toString(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,

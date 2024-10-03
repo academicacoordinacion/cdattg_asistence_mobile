@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, unused_element, use_build_context_synchronously, empty_catches
+
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:flutter/material.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
@@ -187,13 +189,8 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                             // Redirigir a la pantalla PreviewList con la lista de asistencia
                                             routerApp.push('/list-consult',
                                                 extra: attendanceList);
-                                          } else {
-                                            print(
-                                                'Error: La lista de asistencia está vacía');
-                                          }
-                                        } catch (e) {
-                                          print('Error: $e');
-                                        }
+                                          } else {}
+                                        } catch (e) {}
                                       },
                                       child: const Text('Novedades'),
                                     ),

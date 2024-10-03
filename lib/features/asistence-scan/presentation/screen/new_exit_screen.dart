@@ -150,7 +150,7 @@ class NewByPreview extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Guardar Novedad',
                   style: TextStyle(
                     fontFamily: 'OpenSans',
