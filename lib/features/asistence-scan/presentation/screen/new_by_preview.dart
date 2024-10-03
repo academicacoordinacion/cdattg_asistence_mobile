@@ -1,12 +1,19 @@
+import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/save_entrace_update.dart';
 import 'package:flutter/material.dart';
 
 class NewByPreview extends StatelessWidget {
   final Map<String, dynamic> item;
+  final TextEditingController novedadController = TextEditingController();
 
-  const NewByPreview({super.key, required this.item});
+  NewByPreview({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
+    final saveEntranceUpdate = SaveEntranceUpdate(
+      item: item,
+      novedadController: novedadController,
+    );
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -111,6 +118,7 @@ class NewByPreview extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextFormField(
+              controller: novedadController,
               decoration: InputDecoration(
                 labelText: 'Novedad',
                 enabledBorder: OutlineInputBorder(
@@ -131,7 +139,7 @@ class NewByPreview extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle submit action
+                  saveEntranceUpdate.saveFormData(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,
