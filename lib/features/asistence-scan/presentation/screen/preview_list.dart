@@ -1,6 +1,6 @@
-import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/new_exit_screen.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/new_entrace_screen.dart';
 import 'package:flutter/material.dart';
-import 'new_by_preview.dart'; // Importa la nueva pantalla
+import 'new_exit_screen.dart';
 
 class PreviewList extends StatelessWidget {
   final List<dynamic> attendanceList;
@@ -46,7 +46,7 @@ class PreviewList extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => NewExitScreen(item: item),
+                        builder: (context) => NewEntranceScreen(item: item),
                       ),
                     );
                   }

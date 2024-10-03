@@ -1,15 +1,15 @@
-import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/save_entrace_update.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/domain/services/save_entrace_new.dart';
 import 'package:flutter/material.dart';
 
-class NewByPreview extends StatelessWidget {
+class NewEntranceScreen extends StatelessWidget {
   final Map<String, dynamic> item;
   final TextEditingController novedadController = TextEditingController();
 
-  NewByPreview({super.key, required this.item});
+  NewEntranceScreen({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    final saveEntranceUpdate = SaveEntranceUpdate(
+    final saveEntranceNew = SaveEntranceNew(
       item: item,
       novedadController: novedadController,
     );
@@ -18,7 +18,7 @@ class NewByPreview extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Novedad de salida',
+          'Novedad de entrada',
           style: TextStyle(
             fontFamily: 'OpenSans',
             fontSize: 22,
@@ -139,7 +139,7 @@ class NewByPreview extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  saveEntranceUpdate.saveFormData(context);
+                  saveEntranceNew.saveFormData(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,
