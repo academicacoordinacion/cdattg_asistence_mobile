@@ -195,7 +195,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                           print('Error: $e');
                                         }
                                       },
-                                      child: const Text('Ver Asistencia'),
+                                      child: const Text('Novedades'),
                                     ),
                                   ],
                                 ),

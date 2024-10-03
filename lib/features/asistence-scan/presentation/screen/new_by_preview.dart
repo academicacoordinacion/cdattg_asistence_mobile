@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class NewByPreview extends StatelessWidget {
   final Map<String, dynamic> item;
 
-  NewByPreview({required this.item});
+  const NewByPreview({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class NewByPreview extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               initialValue: item['hora_ingreso'],
               decoration: InputDecoration(
@@ -46,7 +46,7 @@ class NewByPreview extends StatelessWidget {
               ),
               readOnly: true,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               initialValue: item['nombres'],
               decoration: InputDecoration(
@@ -67,7 +67,7 @@ class NewByPreview extends StatelessWidget {
               ),
               readOnly: true,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               initialValue: item['apellidos'],
               decoration: InputDecoration(
@@ -88,7 +88,7 @@ class NewByPreview extends StatelessWidget {
               ),
               readOnly: true,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               initialValue: item['numero_identificacion'].toString(),
               decoration: InputDecoration(
@@ -109,7 +109,7 @@ class NewByPreview extends StatelessWidget {
               ),
               readOnly: true,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Novedad',
@@ -127,12 +127,21 @@ class NewByPreview extends StatelessWidget {
               ),
               maxLines: 3, // This will increase the height of the TextFormField
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   // Handle submit action
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  iconColor: Theme.of(context).primaryColor,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 child: Text(
                   'Guardar Novedad',
                   style: TextStyle(
@@ -140,14 +149,6 @@ class NewByPreview extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  iconColor: Theme.of(context).primaryColor,
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),

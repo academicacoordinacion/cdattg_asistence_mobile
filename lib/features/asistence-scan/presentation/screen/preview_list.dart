@@ -1,10 +1,11 @@
+import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/new_exit_screen.dart';
 import 'package:flutter/material.dart';
 import 'new_by_preview.dart'; // Importa la nueva pantalla
 
 class PreviewList extends StatelessWidget {
   final List<dynamic> attendanceList;
 
-  PreviewList({required this.attendanceList});
+  const PreviewList({super.key, required this.attendanceList});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class PreviewList extends StatelessWidget {
             child: ListTile(
               trailing: PopupMenuButton<String>(
                 onSelected: (value) {
-                  if (value == 'Novedad') {
+                  if (value == 'Novedad_salida') {
                     // Navegar a la nueva pantalla con los datos del item
                     Navigator.push(
                       context,
@@ -41,13 +42,28 @@ class PreviewList extends StatelessWidget {
                       ),
                     );
                   }
+                  if (value == 'Novedad_entrada') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewExitScreen(item: item),
+                      ),
+                    );
+                  }
                 },
                 itemBuilder: (BuildContext context) {
                   return [
                     PopupMenuItem<String>(
-                      value: 'Novedad',
+                      value: 'Novedad_salida',
                       child: Text(
-                        'Novedad',
+                        'Novedad Salida',
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'Novedad_entrada',
+                      child: Text(
+                        'Novedad Entrada',
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ),
@@ -58,21 +74,21 @@ class PreviewList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Ingreso: ${item['hora_ingreso']}"?.toString() ?? 'NA',
+                    "Ingreso: ${item['hora_ingreso']}".toString() ?? 'NA',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Nombres: ${item['nombres']}"?.toString() ?? 'NA',
+                    "Nombres: ${item['nombres']}".toString() ?? 'NA',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Apellidos: ${item['apellidos']}"?.toString() ?? 'NA',
+                    "Apellidos: ${item['apellidos']}".toString() ?? 'NA',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
@@ -80,7 +96,7 @@ class PreviewList extends StatelessWidget {
                   ),
                   Text(
                     "N° Identificación: ${item['numero_identificacion']}"
-                            ?.toString() ??
+                            .toString() ??
                         'NA',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
