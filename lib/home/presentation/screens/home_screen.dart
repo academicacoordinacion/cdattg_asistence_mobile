@@ -31,38 +31,47 @@ class HomeScreen extends StatelessWidget {
                   'assets/images/logo_sena.png',
                   height: 100,
                 ),
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 70),
-                      child: ListTile(
-                        leading: Icon(Icons.supervised_user_circle_rounded,
-                            color: appColor.primary),
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text('Iniciar sesión',
-                              style: TextStyle(color: appColor.primary)),
-                        ),
-                        onTap: () {
-                          routerApp.go('/login');
-                        },
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: appColor.primary,
-                        ),
-                      )),
+                Container(
+                  height: 50,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 150), // Increased vertical margin
+                  child: ElevatedButton.icon(
+                    icon: Icon(Icons.supervised_user_circle_rounded,
+                        color: appColor.onPrimary),
+                    label: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('Iniciar sesión',
+                          style: TextStyle(color: appColor.onPrimary)),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          appColor.primary, // Set the background color
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      routerApp.go('/login');
+                    },
+                  ),
                 ),
+                const Spacer(),
                 Center(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 30),
-                    alignment: Alignment.center,
-                    child: Text(
-                      'AGROINDUSTRIA Y TECNOLOGÍA SENA GUAVIARE',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: appColor.primary,
-                        fontFamily: 'OpenSans',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                    height: 70,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Center(
+                      child: Text(
+                        'Agroindustria y Tecnología SENA Guaviare',
+                        textAlign: TextAlign.center, // Center the text
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: appColor.primary,
+                          fontFamily: 'OpenSans',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
