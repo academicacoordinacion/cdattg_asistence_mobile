@@ -18,31 +18,29 @@ class SaveEntranceUpdate {
     final dio = Dio();
     final url = '${Environment.apiUrl}/asistencia/updateExitAsistence';
 
-    try {
-      final response = await dio.post(
-        url,
-        data: {
-          'hora_ingreso': item['hora_ingreso'],
-          'nombres': item['nombres'],
-          'apellidos': item['apellidos'],
-          'numero_identificacion': item['numero_identificacion'],
-          'novedad_salida': novedadController.text,
+    final response = await dio.post(
+      url,
+      data: {
+        'hora_ingreso': item['hora_ingreso'],
+        'nombres': item['nombres'],
+        'apellidos': item['apellidos'],
+        'numero_identificacion': item['numero_identificacion'],
+        'novedad_salida': novedadController.text,
+      },
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
         },
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          },
-        ),
-      );
+      ),
+    );
 
-      if (response.statusCode == 200) {
-        scanAlerts.SuccessToast('Novedad de salida guardada');
-      } else {
-        scanAlerts.WrongToast('Error al guardar al novedad');
-      }
-    } catch (e) {
-      scanAlerts.WrongToast('Error al guardar al novedad: ${e.toString()}');
+    if (response.statusCode == 200) {
+      scanAlerts.SuccessToast('Novedad de salida guardada');
+    }
+
+    if (response.statusCode != 200) {
+      scanAlerts.WrongToast('Error al guardar al novedad');
     }
   }
 }
