@@ -2,13 +2,17 @@ import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/a
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/instructor_screen.dart.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/preview_list.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/start_scaner_screen.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
 import 'package:cdattg_sena_mobile/features/auth/presentation/screens/login_screen.dart';
 import 'package:cdattg_sena_mobile/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+final sesion = AuthService().loadData();
+
 final GoRouter routerApp = GoRouter(
-  initialLocation: '/',
+  initialLocation:
+      AuthService().getToken() == null ? '/' : '/instructor-screen',
   routes: [
     GoRoute(
       path: '/',

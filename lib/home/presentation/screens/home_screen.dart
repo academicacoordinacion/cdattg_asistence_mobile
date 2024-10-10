@@ -1,4 +1,5 @@
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
+import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,6 +8,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appColor = Theme.of(context).colorScheme;
+    final AuthService authService = AuthService();
+    authService.loadData();
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -52,8 +55,18 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {
-                      routerApp.go('/login');
+                    onPressed: () async {
+                      bool isAuthenticated =
+                          await authService.isAuthenticated();
+                      if (isAuthenticated) {
+                        routerApp.go(
+                            '/instructor-screen'); // Redirigir a la ruta deseada si el token existe
+                      }
+
+                      if (!isAuthenticated) {
+                        routerApp.go(
+                            '/login'); // Redirigir a la ruta de login si el token no existe
+                      }
                     },
                   ),
                 ),

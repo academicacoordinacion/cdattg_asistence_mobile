@@ -20,6 +20,7 @@ class AuhtDataSource {
     if (formKey.currentState?.validate() ?? false) {
       final email = emailController.text;
       final password = passwordController.text;
+      authService.loadData();
 
       try {
         final success = await authService.authenticate(email, password);
