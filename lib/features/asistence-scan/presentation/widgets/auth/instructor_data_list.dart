@@ -4,7 +4,7 @@ import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.da
 class InstructorDataList extends StatefulWidget {
   final AuthService authService;
 
-  InstructorDataList({required this.authService});
+  const InstructorDataList({super.key, required this.authService});
 
   @override
   _InstructorDataListState createState() => _InstructorDataListState();
