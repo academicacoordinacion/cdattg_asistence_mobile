@@ -16,6 +16,7 @@ class InstructorDataList extends StatefulWidget {
 class _InstructorDataListState extends State<InstructorDataList> {
   Map<String, dynamic>? userData;
   Map<String, dynamic>? personData;
+  final AuthService auth = AuthService();
 
   @override
   void initState() {
@@ -32,11 +33,13 @@ class _InstructorDataListState extends State<InstructorDataList> {
   }
 
   Future<void> _startScanner(BuildContext context) async {
+    auth.loadData();
     final dio = Dio();
     final startScanerService =
         StartScanerService(authService: widget.authService, dio: dio);
 
     final data = await startScanerService.fetchDataFromApi();
+    print(data);
 
     if (data != null) {
       // Redirigir a otra pantalla

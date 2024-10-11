@@ -18,20 +18,20 @@ class HomeScreen extends StatelessWidget {
             child: Text(
               'CDATTG MOBILE',
               style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 22,
-                color: appColor.primary,
-              ),
+                  fontFamily: 'OpenSans',
+                  fontSize: 22,
+                  color: appColor.primary,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ),
         body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 40),
+          margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 50),
           child: Center(
             child: Column(
               children: [
-                Image.network(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqNShshQtVwuUvPYKggWuexaA2qArJwN495qs2j7CF0aYeIOl3vhkCka-EJOfouEfZFnc&usqp=CAU',
+                Image.asset(
+                  'assets/images/logo_sena.png',
                   height: 100,
                 ),
                 Container(
@@ -75,11 +75,16 @@ class HomeScreen extends StatelessWidget {
                   child: Container(
                     height: 70,
                     margin: const EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      'Agroindustria y Tecnología Guaviare',
-                      style: TextStyle(
-                        color: appColor.primary,
-                        fontFamily: 'OpenSans',
+                    child: Center(
+                      child: Text(
+                        'Agroindustria y Tecnología SENA Guaviare',
+                        textAlign: TextAlign.center, // Center the text
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: appColor.primary,
+                          fontFamily: 'OpenSans',
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

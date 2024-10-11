@@ -23,16 +23,6 @@ class StartScanerService {
     print('Token: $token');
     print('User ID: $userId');
 
-    if (token == null) {
-      print('No token available');
-      return null;
-    }
-
-    if (userId == null) {
-      print('No user ID available');
-      return null;
-    }
-
     // Usar 10.0.2.2 para emulador de Android
     final endpoint =
         '${Environment.apiUrl}/caracterizacion/byInstructor/$userId';
