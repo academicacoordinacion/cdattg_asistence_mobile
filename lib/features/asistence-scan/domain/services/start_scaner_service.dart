@@ -19,13 +19,8 @@ class StartScanerService {
     final token = authService.getToken();
     final userId = authService.getUserId();
 
-    if (token == null) {
-      return null;
-    }
-
-    if (userId == null) {
-      return null;
-    }
+    print('Token: $token');
+    print('User ID: $userId');
 
     // Usar 10.0.2.2 para emulador de Android
     final endpoint =
