@@ -107,4 +107,9 @@ class AuthService {
     await prefs.remove('user');
     await prefs.remove('person');
   }
+
+  Future<bool> isAuthenticated() async {
+    await loadData();
+    return _token != null;
+  }
 }
