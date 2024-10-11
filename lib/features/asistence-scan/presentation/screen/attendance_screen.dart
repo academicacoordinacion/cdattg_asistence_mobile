@@ -87,6 +87,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           },
         ));
 
+    if (attendanceList.length < 2) {
+      scanAlerts.WrongToast('No hay asistencias para guardar');
+      return;
+    }
+
     if (response.statusCode == 200) {
       scanAlerts.SuccessToast('Lista de asistencia guardada correctamente');
       routerApp.push('/start-scan');
