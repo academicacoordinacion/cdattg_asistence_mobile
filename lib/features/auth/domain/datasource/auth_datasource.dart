@@ -23,46 +23,29 @@ class AuhtDataSource {
       final email = emailController.text;
       final password = passwordController.text;
 
-      try {
-        final success = await authService.authenticate(email, password);
+      final success = await authService.authenticate(email, password);
 
-        if (success == true) {
-          // Redirige a la pantalla de inicio usando GoRouter
-          if (context.mounted) {
-            routerApp.go('/asistence-scan');
-          }
-        } else {
-          // Muestra un SnackBar de error
-          _showErrorSnackBar(context, 'Error de inicio de sesión');
-        }
-      } on DioException catch (dioError) {
-        // Maneja errores específicos de Dio
-        _showErrorSnackBar(
-            context, 'Error de red con Dio: ${dioError.message}');
-      } catch (e) {
-        // Maneja cualquier otra excepción que ocurra durante la autenticación
-        _showErrorSnackBar(context, 'Error de red: ${e.toString()}');
+      if (success == true) {
+        // Redirige a la pantalla de inicio usando GoRouter
+        routerApp.go('/asistence-scan');
+      } else {
+        // Muestra un SnackBar de error
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'error de inicio de sesión',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            duration: const Duration(seconds: 2), // Duración de 3 segundos
+          ),
+        );
       }
-    }
-  }
-
-  void _showErrorSnackBar(BuildContext context, String message) {
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            message,
-            style: const TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          margin: const EdgeInsets.symmetric(horizontal: 20.0),
-          // Duración de 2 segundos
-        ),
-      );
     }
   }
 
