@@ -23,6 +23,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   AuthService authService = AuthService(); // Instancia de AuthService
   final ScanAlerts scanAlerts = ScanAlerts();
   final ExitData _exitData = ExitData();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -72,35 +73,27 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     final dio = Dio();
     final url = '${Environment.apiUrl}/asistencia/store';
 
-    try {
-      authService.loadData();
-      final token = authService.getToken();
-      final response = await dio.post(url,
-          data: {
-            'caracterizacion_id': widget.selectedBoxData['id'],
-            'attendance': attendanceList,
+    authService.loadData();
+    final token = authService.getToken();
+    print('Token: $token');
+    final response = await dio.post(url,
+        data: {
+          'caracterizacion_id': widget.selectedBoxData['id'],
+          'attendance': attendanceList,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
           },
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $token',
-            },
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            },
-          ));
+        ));
 
-      if (response.statusCode == 200) {
-        scanAlerts.SuccessToast('Lista de asistencia guardada con éxito');
-      } else if (response.statusCode == 200 && response.data != false) {
-        scanAlerts.SuccessToast(
-            'Datos validadados: Presiona el botón Guaradar Asistencia');
-      } else {
-        scanAlerts.SuccessToast(
-            'Datos validadados: Presiona el botón Guaradar Asistencia');
-      }
-    } catch (e) {
-      scanAlerts.WrongToast('Fallo al guardar asistencia: $e');
+    if (response.statusCode == 200) {
+      scanAlerts.SuccessToast('Lista de asistencia guardada correctamente');
+      routerApp.push('/start-scan');
+    }
+
+    if (response.statusCode == 404) {
+      scanAlerts.WrongToast('Error: El listado no se a guardado');
     }
   }
 
@@ -223,7 +216,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: _saveData,
+                  onPressed: _isLoading ? null : _saveData,
                   child: const Text('Guardar Asistencia',
                       style: TextStyle(color: Colors.white)),
                 ),
