@@ -75,7 +75,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
     authService.loadData();
     final token = authService.getToken();
-    print('Token: $token');
+
     final response = await dio.post(url,
         data: {
           'caracterizacion_id': widget.selectedBoxData['id'],
@@ -87,15 +87,26 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           },
         ));
 
-    if (attendanceList.length < 2) {
+    if (attendanceList.isEmpty && response.statusCode == 200) {
       scanAlerts.WrongToast('No hay asistencias para guardar');
       return;
     }
 
     if (response.statusCode == 200) {
-      scanAlerts.SuccessToast('Lista de asistencia guardada correctamente');
-      routerApp.push('/start-scan');
+      setState(() {
+        _isLoading = true;
+      });
+
+      Future.delayed(const Duration(seconds: 10), () {
+        setState(() {
+          _isLoading = false;
+          scanAlerts.SuccessToast('Lista de asistencia guardada correctamente');
+          attendanceList.clear();
+        });
+      });
     }
+
+    if (_isLoading == false) {}
 
     if (response.statusCode == 404) {
       scanAlerts.WrongToast('Error: El listado no se a guardado');
@@ -208,6 +219,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               },
             ),
           ),
+          if (_isLoading) const CircularProgressIndicator(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
