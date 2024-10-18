@@ -19,9 +19,6 @@ class StartScanerService {
     final token = authService.getToken();
     final userId = authService.getUserId();
 
-    print('Token: $token');
-    print('User ID: $userId');
-
     // Usar 10.0.2.2 para emulador de Android
     final endpoint =
         '${Environment.apiUrl}/caracterizacion/byInstructor/$userId';

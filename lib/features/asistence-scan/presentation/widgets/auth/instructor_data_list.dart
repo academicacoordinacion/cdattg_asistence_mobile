@@ -41,7 +41,6 @@ class _InstructorDataListState extends State<InstructorDataList> {
         StartScanerService(authService: widget.authService, dio: dio);
 
     final data = await startScanerService.fetchDataFromApi();
-    print(data);
 
     if (data != null) {
       // Redirigir a otra pantalla
