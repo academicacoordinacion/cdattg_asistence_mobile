@@ -34,7 +34,6 @@ class PreviewList extends StatelessWidget {
               trailing: PopupMenuButton<String>(
                 onSelected: (value) {
                   if (value == 'Novedad_salida') {
-                    // Navegar a la nueva pantalla con los datos del item
                     Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -1,3 +1,4 @@
+import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/asistence_form.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/assistence_out_screen.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/instructor_screen.dart.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/presentation/screen/preview_list.dart';
@@ -60,6 +61,17 @@ final GoRouter routerApp = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         final attendanceList = state.extra as List<dynamic>;
         return PreviewList(attendanceList: attendanceList);
+      },
+    ),
+    GoRoute(
+      path: '/asistence-form',
+      builder: (BuildContext context, GoRouterState state) {
+        final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+        return AsistenceForm(
+          caracterizacion_id: extra['caracterizacion_id'].toString(),
+          ficha: extra['ficha'].toString(),
+          jornada: extra['jornada'].toString(),
+        );
       },
     ),
   ],

@@ -170,11 +170,33 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                             Theme.of(context).primaryColor,
                                         textStyle: const TextStyle(
                                           fontFamily: 'OpenSans',
-                                          fontSize: 16,
+                                          fontSize: 14,
                                         ),
                                         foregroundColor: Colors.white,
                                       ),
-                                      child: const Text('Tomar Asistencia'),
+                                      child: const Text('Scanear'),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        routerApp.push(
+                                          '/asistence-form',
+                                          extra: {
+                                            'caracterizacion_id': item['id'],
+                                            'ficha': item['ficha'],
+                                            'jornada': item['jornada'],
+                                          },
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                        textStyle: const TextStyle(
+                                          fontFamily: 'OpenSans',
+                                          fontSize: 14,
+                                        ),
+                                        foregroundColor: Colors.white,
+                                      ),
+                                      child: const Text('Manual'),
                                     ),
                                     ElevatedButton(
                                       onPressed: () async {
@@ -211,7 +233,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontFamily: 'OpenSans',
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                     textAlign: TextAlign.center,
                   ),
