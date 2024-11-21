@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, unused_element, use_build_context_synchronously, empty_catches
 
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
+import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/exit_data.dart';
 import 'package:flutter/material.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/services/auth_service.dart';
 import 'package:dio/dio.dart';
@@ -19,6 +20,8 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
     authService: AuthService(),
     dio: Dio(),
   );
+  final ExitData exitData = ExitData();
+  final ExitData _exitData = ExitData();
 
   List<dynamic>? scanerData;
   Map<int, bool> selectedItems = {};
@@ -43,35 +46,6 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
           scanerData = apiData;
           selectedItems = {for (var item in apiData) item['id']: false};
         });
-      }
-    }
-  }
-
-  Future<void> _saveSelectedItems() async {
-    if (scanerData != null) {
-      final selectedData = scanerData!
-          .where((item) => selectedItems[item['id']] == true)
-          .toList();
-      if (selectedData.isNotEmpty) {
-        final dio = Dio();
-        final response = await dio.post(
-          'http://10.0.2.2:8000/api/saveSelectedItems',
-          data: selectedData,
-        );
-
-        if (response.statusCode == 200) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Datos guardados exitosamente.'),
-            ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Error al guardar los datos.'),
-            ),
-          );
-        }
       }
     }
   }
@@ -133,6 +107,24 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                           ),
                           child: Column(
                             children: [
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: PopupMenuButton<String>(
+                                  onSelected: (String result) {
+                                    _exitData.finishFormation(item['id']);
+                                  },
+                                  itemBuilder: (BuildContext context) => [
+                                    const PopupMenuItem<String>(
+                                      value: 'option1',
+                                      child: Text('Finalizar formación'),
+                                    ),
+                                  ],
+                                  icon: Icon(
+                                    Icons.more_vert,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ),
                               CheckboxListTile(
                                 title: Text(
                                   item['programa_formacion'] ?? 'N/A',
@@ -208,7 +200,6 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                                   item['jornada'].toString());
 
                                           if (attendanceList.isNotEmpty) {
-                                            // Redirigir a la pantalla PreviewList con la lista de asistencia
                                             routerApp.push('/list-consult',
                                                 extra: attendanceList);
                                           } else {}

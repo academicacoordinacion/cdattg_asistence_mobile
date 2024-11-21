@@ -20,7 +20,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   List<Map<String, String>> attendanceList = [];
   QRViewController? controller;
-  AuthService authService = AuthService(); // Instancia de AuthService
+  AuthService authService = AuthService();
   final ScanAlerts scanAlerts = ScanAlerts();
   final ExitData _exitData = ExitData();
   bool _isLoading = false;
@@ -35,7 +35,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       if (scanData.code != null) {
-        // Parse the scanned data (assuming it's a delimited string)
         final data = parseQRCode(scanData.code!);
         if (data != null &&
             !attendanceList.any((item) =>
@@ -97,7 +96,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         _isLoading = true;
       });
 
-      Future.delayed(const Duration(seconds: 10), () {
+      Future.delayed(const Duration(seconds: 4), () {
         setState(() {
           _isLoading = false;
           scanAlerts.SuccessToast('Lista de asistencia guardada correctamente');
@@ -129,7 +128,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              // Implement your logout functionality here
               authService.logout();
               routerApp.go('/');
             },
@@ -195,8 +193,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                       widget.selectedBoxData['id'].toString(),
                                   'numero_identificacion':
                                       item['numero_identificacion'],
-                                  'hora_entrada': item['hora_ingreso']
-                                      .toString(), // Asegúrate de que este valor esté disponible
+                                  'hora_entrada':
+                                      item['hora_ingreso'].toString(),
                                 },
                               );
                             }

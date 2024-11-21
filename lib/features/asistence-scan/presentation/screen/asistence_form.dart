@@ -9,12 +9,12 @@ class AsistenceForm extends StatefulWidget {
   final String ficha;
   final String jornada;
 
-  AsistenceForm({
-    Key? key,
+  const AsistenceForm({
+    super.key,
     required this.caracterizacion_id,
     required this.ficha,
     required this.jornada,
-  }) : super(key: key);
+  });
 
   @override
   _AsistenceFormState createState() => _AsistenceFormState();
@@ -69,11 +69,11 @@ class _AsistenceFormState extends State<AsistenceForm> {
                 'Lista de asistencia guardada correctamente');
           });
         });
-      } else {
-        _scanAlerts.WrongToast('Error al guardar la asistencia');
+
+        if (respose.statusCode == 400) {
+          _scanAlerts.WrongToast('Error: Asistencia no guardada');
+        }
       }
-    } else {
-      _scanAlerts.WrongToast('Acceso denegado');
     }
   }
 
@@ -109,7 +109,7 @@ class _AsistenceFormState extends State<AsistenceForm> {
                 ),
                 enabled: false,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextField(
                 controller: _hora_ingreso,
                 decoration: InputDecoration(
@@ -123,7 +123,7 @@ class _AsistenceFormState extends State<AsistenceForm> {
                 ),
                 enabled: false,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextField(
                 controller: _nombres,
                 decoration: InputDecoration(
@@ -136,7 +136,7 @@ class _AsistenceFormState extends State<AsistenceForm> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextField(
                 controller: _apellidos,
                 decoration: InputDecoration(
@@ -149,7 +149,7 @@ class _AsistenceFormState extends State<AsistenceForm> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextField(
                 controller: _numero_identificacion,
                 decoration: InputDecoration(
@@ -162,7 +162,7 @@ class _AsistenceFormState extends State<AsistenceForm> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (_isLoading) const LinearProgressIndicator(),
               Center(
                 child: ElevatedButton(

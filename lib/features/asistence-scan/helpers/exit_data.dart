@@ -35,9 +35,6 @@ class ExitData {
 
       if (response.statusCode == 200) {
         scanAlert.SuccessToast('Hora de salida guardada exitosamente');
-      }
-      if (response.statusCode == 200 && response.data != false) {
-        scanAlert.SuccessToast('Hora de salida guardada exitosamente');
       } else {
         scanAlert.SuccessToast(
             'Datos validados, preciona el botón Finalizar formación');
