@@ -166,7 +166,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                         ),
                                         foregroundColor: Colors.white,
                                       ),
-                                      child: const Text('Scanear'),
+                                      child: const Text('Qr'),
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
@@ -188,7 +188,7 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
                                         ),
                                         foregroundColor: Colors.white,
                                       ),
-                                      child: const Text('Manual'),
+                                      child: const Text('registro manual'),
                                     ),
                                     ElevatedButton(
                                       onPressed: () async {
