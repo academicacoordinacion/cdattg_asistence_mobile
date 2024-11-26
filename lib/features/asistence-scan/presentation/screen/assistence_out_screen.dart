@@ -159,8 +159,6 @@ class AssistenceOutScreen extends StatelessWidget {
       ),
     );
 
-    print(token);
-
     if (response.data != false) {
       scanAlerts.SuccessToast('Novedad guardada con éxito');
     }
