@@ -16,24 +16,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //   return FutureBuilder<bool>(
-    //     future: authService.isAuthenticated(),
-    //     builder: (context, snapshot) {
-    //       if (snapshot.connectionState == ConnectionState.waiting) {
-    //         return const CircularProgressIndicator(); // Mostrar un indicador de carga mientras se verifica la autenticación
-    //       } else {
-    //         final bool isLoggedIn = snapshot.data ?? false;
-    //         final routerConfig = isLoggedIn ? routerApp : routerApp;
-
-    //         return MaterialApp.router(
-    //           debugShowCheckedModeBanner: false,
-    //           routerConfig: routerConfig,
-    //           theme: ThemeApp(colorSelector: 0).themeData,
-    //         );
-    //       }
-    //     },
-    //   );
-    // }
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: routerApp,
