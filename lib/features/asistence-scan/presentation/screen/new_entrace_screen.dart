@@ -133,7 +133,7 @@ class NewEntranceScreen extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 16,
               ),
-              maxLines: 3, // This will increase the height of the TextFormField
+              maxLines: 3,
             ),
             const SizedBox(height: 16),
             Center(

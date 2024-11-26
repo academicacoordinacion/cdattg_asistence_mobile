@@ -9,7 +9,7 @@ class InstructorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorApp = Theme.of(context).colorScheme;
-    final authService = AuthService(); // Crear una instancia de AuthService
+    final authService = AuthService();
 
     return Scaffold(
       appBar: AppBar(
