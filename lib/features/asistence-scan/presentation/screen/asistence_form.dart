@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api
+
 import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/scan_alerts.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';

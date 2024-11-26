@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/exit_data.dart';
