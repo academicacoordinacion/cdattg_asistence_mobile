@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore
+
 import 'package:cdattg_sena_mobile/config/constanst/enviroment.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/scan_alerts.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 class AsistenceForm extends StatefulWidget {
+  // ignore: non_constant_identifier_names
   final String caracterizacion_id;
   final String ficha;
   final String jornada;
@@ -17,6 +20,7 @@ class AsistenceForm extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _AsistenceFormState createState() => _AsistenceFormState();
 }
 
