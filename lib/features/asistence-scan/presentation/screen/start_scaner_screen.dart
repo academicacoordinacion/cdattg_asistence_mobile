@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/exit_data.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +29,30 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
   final TextEditingController _filterController = TextEditingController();
 
   @override
+  /*
+   * Método que se llama cuando el widget se inserta en el árbol de widgets.
+   * Sobrescribe el método initState de la clase State.
+   * Llama al método _loadData para cargar los datos necesarios.
+   */
   void initState() {
     super.initState();
     _loadData();
   }
 
+  /*
+   * Carga los datos necesarios para la pantalla del escáner.
+   * 
+   * Este método intenta obtener los datos almacenados en las preferencias del usuario.
+   * Si los datos están disponibles, actualiza el estado con estos datos.
+   * Si no hay datos en las preferencias, intenta obtener los datos desde una API.
+   * 
+   * Actualiza las siguientes variables de estado:
+   * - scanerData: Los datos del escáner obtenidos.
+   * - filteredData: Los mismos datos del escáner para ser filtrados.
+   * - selectedItems: Un mapa de elementos seleccionados, inicializado con todos los elementos no seleccionados.
+   * 
+   * @return Future<void> Un futuro que se completa cuando los datos han sido cargados.
+   */
   Future<void> _loadData() async {
     final data = await startScanerService.getDataFromPreferences();
     if (data != null) {
@@ -52,6 +73,14 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
     }
   }
 
+  /*
+   * Filtra los datos de `scanerData` según la consulta proporcionada.
+   * 
+   * Este método actualiza el estado de `filteredData` con los elementos de `scanerData`
+   * que contienen la consulta proporcionada en el campo 'ficha'.
+   * 
+   * @param query La cadena de texto utilizada para filtrar los datos.
+   */
   void _filterData(String query) {
     setState(() {
       filteredData = scanerData?.where((item) {
@@ -62,6 +91,14 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
     });
   }
 
+  /*
+   * Navega a la pantalla de asistencia.
+   *
+   * Este método utiliza el `Navigator` para empujar una nueva ruta a la pila de navegación,
+   * llevando al usuario a la pantalla de asistencia (`AttendanceScreen`).
+   *
+   * @param selectedBoxData Los datos seleccionados que se pasarán a la pantalla de asistencia.
+   */
   void _navigateToAttendanceScreen(dynamic selectedBoxData) {
     Navigator.push(
       context,
