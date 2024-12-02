@@ -31,6 +31,22 @@ class _AsistenceFormState extends State<AsistenceForm> {
   final ScanAlerts _scanAlerts = ScanAlerts();
   bool _isLoading = false;
 
+  /*
+   * Guarda el formulario de asistencia enviando los datos a la API.
+   * 
+   * Este método realiza las siguientes acciones:
+   * 1. Carga los datos del servicio de autenticación.
+   * 2. Crea una instancia de Dio para realizar la solicitud HTTP.
+   * 3. Construye la URL de la API para almacenar la asistencia.
+   * 4. Obtiene el token de autenticación.
+   * 5. Prepara los datos del formulario para enviarlos.
+   * 6. Si el token es válido, realiza una solicitud POST a la API con los datos y el token en el encabezado.
+   * 7. Si la respuesta de la API es exitosa (código 200), muestra un mensaje de éxito después de un retraso de 4 segundos.
+   * 8. Si la respuesta de la API indica un error (código 400), muestra un mensaje de error.
+   * 
+   * @param context El contexto de la aplicación.
+   * @return Un Future que se completa cuando se guarda el formulario de asistencia.
+   */
   Future<void> _saveAsistenceform(BuildContext context) async {
     _authService.loadData();
     Dio dio = Dio();

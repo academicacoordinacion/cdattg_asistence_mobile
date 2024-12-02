@@ -12,6 +12,23 @@ class SaveEntranceUpdate {
 
   SaveEntranceUpdate({required this.item, required this.novedadController});
 
+  /// Guarda los datos del formulario de asistencia.
+  ///
+  /// Este método envía una solicitud POST al servidor para actualizar la
+  /// asistencia de salida con los datos proporcionados.
+  ///
+  /// Parámetros:
+  /// - `context`: El contexto de la aplicación.
+  ///
+  /// Acciones:
+  /// - Carga los datos de autenticación.
+  /// - Obtiene el token de autenticación.
+  /// - Envía una solicitud POST al servidor con los datos de asistencia.
+  /// - Muestra una notificación de éxito si la solicitud es exitosa.
+  /// - Muestra una notificación de error si la solicitud falla.
+  ///
+  /// Excepciones:
+  /// - Puede lanzar excepciones relacionadas con la solicitud HTTP.
   Future<void> saveFormData(BuildContext context) async {
     authService.loadData();
     final token = authService.getToken();

@@ -136,6 +136,16 @@ class AssistenceOutScreen extends StatelessWidget {
     );
   }
 
+  /*
+   * Guarda una novedad en el servidor.
+   *
+   * Este método realiza una solicitud POST a la API para guardar una novedad
+   * relacionada con la asistencia. Utiliza el paquete Dio para realizar la 
+   * solicitud HTTP y muestra alertas de éxito o error según la respuesta del servidor.
+   *
+   * @param context El contexto de la aplicación.
+   * @return Un Future que se completa cuando la solicitud se ha realizado.
+   */
   Future<void> _saveNovedad(BuildContext context) async {
     final dio = Dio();
     final url = '${Environment.apiUrl}/asistencia/novedad';

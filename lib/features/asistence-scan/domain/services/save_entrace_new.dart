@@ -12,6 +12,23 @@ class SaveEntranceNew {
 
   SaveEntranceNew({required this.item, required this.novedadController});
 
+  /// Guarda los datos del formulario enviándolos a la API especificada.
+  ///
+  /// Este método utiliza la librería Dio para enviar una solicitud POST a la URL
+  /// de la API definida en `Environment.apiUrl`. Los datos enviados incluyen
+  /// información de hora de ingreso, nombres, apellidos, número de identificación
+  /// y novedad de entrada.
+  ///
+  /// Si la solicitud es exitosa (código de estado 200), se muestra un mensaje de
+  /// éxito. Si la solicitud falla con un código de estado 404, se muestra un
+  /// mensaje de error específico. Para cualquier otro código de estado, también
+  /// se muestra un mensaje de error.
+  ///
+  /// Parámetros:
+  /// - `context`: El contexto de la aplicación.
+  ///
+  /// Retorna:
+  /// - Un `Future<void>` que completa cuando la operación de guardado ha terminado.
   Future<void> saveFormData(BuildContext context) async {
     final dio = Dio();
     authService.loadData();

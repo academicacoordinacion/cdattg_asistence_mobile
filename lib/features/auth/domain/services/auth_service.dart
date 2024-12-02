@@ -16,22 +16,46 @@ class AuthService {
           receiveTimeout: const Duration(seconds: 30), // 3 segundos
         ));
 
-  // Método para obtener el token
+  /*
+   * Obtiene el token de autenticación.
+   *
+   * @return El token de autenticación, o null si no está disponible.
+   */
   String? getToken() {
     return _token;
   }
 
-  // Método para obtener los datos del usuario
+  /*
+   * Obtiene los datos del usuario.
+   *
+   * @return Un mapa con los datos del usuario, o null si no hay datos disponibles.
+   */
   Map<String, dynamic>? getUserData() {
     return _user;
   }
 
-  // Método para obtener los datos de la persona
+  /*
+   * Obtiene los datos de la persona.
+   *
+   * @return Un mapa con los datos de la persona, o null si no hay datos disponibles.
+   */
   Map<String, dynamic>? getPersonData() {
     return _person;
   }
 
-  // Método de autenticación
+  /*
+   * Autentica al usuario con el correo electrónico y la contraseña proporcionados.
+   *
+   * Envía una solicitud POST al endpoint de autenticación con los datos del usuario.
+   * Si la respuesta es exitosa (código de estado 200), almacena el token, el usuario y la persona
+   * en las variables correspondientes y guarda los datos localmente.
+   *
+   * Retorna `true` si la autenticación es exitosa, de lo contrario, retorna `false`.
+   *
+   * @param email El correo electrónico del usuario.
+   * @param password La contraseña del usuario.
+   * @return Un `Future` que resuelve a `true` si la autenticación es exitosa, de lo contrario `false`.
+   */
   Future<bool> authenticate(String email, String password) async {
     try {
       final response = await dio.post(
@@ -61,6 +85,14 @@ class AuthService {
     return false;
   }
 
+  /*
+   * Almacena datos en las preferencias compartidas.
+   * 
+   * Este método guarda el token, el usuario y la persona en las preferencias
+   * compartidas si no son nulos. Los datos se almacenan como cadenas JSON.
+   * 
+   * @return Un Future que se completa cuando los datos han sido almacenados.
+   */
   Future<void> storeData() async {
     final prefs = await SharedPreferences.getInstance();
     if (_token != null) {
@@ -74,6 +106,16 @@ class AuthService {
     }
   }
 
+  /*
+   * Carga los datos almacenados en las preferencias compartidas.
+   * 
+   * Obtiene la instancia de `SharedPreferences` y recupera los valores
+   * almacenados para 'token', 'user' y 'person'. Si los valores de 'user' 
+   * y 'person' no son nulos, los decodifica de JSON y los asigna a las 
+   * variables `_user` y `_person` respectivamente.
+   * 
+   * @return Un `Future` que se completa cuando los datos han sido cargados.
+   */
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
@@ -89,6 +131,11 @@ class AuthService {
     }
   }
 
+  /*
+   * Obtiene el ID del usuario actual.
+   *
+   * @return El ID del usuario como una cadena de texto si está disponible, de lo contrario, null.
+   */
   String? getUserId() {
     final userId = _user?['id'];
     if (userId != null) {
@@ -97,6 +144,16 @@ class AuthService {
     return null;
   }
 
+  /*
+   * Cierra la sesión del usuario actual.
+   * 
+   * Este método realiza las siguientes acciones:
+   * - Establece los valores de `_token`, `_user` y `_person` a `null`.
+   * - Obtiene una instancia de `SharedPreferences`.
+   * - Elimina las claves 'token', 'user' y 'person' de `SharedPreferences`.
+   * 
+   * @return Un `Future` que se completa cuando se han eliminado las claves de `SharedPreferences`.
+   */
   Future<void> logout() async {
     _token = null;
     _user = null;
@@ -108,6 +165,13 @@ class AuthService {
     await prefs.remove('person');
   }
 
+  /*
+   * Verifica si el usuario está autenticado.
+   *
+   * Este método carga los datos necesarios y luego verifica si el token de autenticación no es nulo.
+   *
+   * @return Un Future que resuelve a true si el usuario está autenticado, de lo contrario false.
+   */
   Future<bool> isAuthenticated() async {
     await loadData();
     return _token != null;

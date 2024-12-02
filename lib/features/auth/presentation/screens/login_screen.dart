@@ -19,6 +19,14 @@ class _LoginScreenState extends State<LoginScreen> {
   late final AuhtDataSource _loginLogic;
 
   @override
+  /*
+   * Método que se llama cuando el estado del widget se inicializa.
+   * 
+   * Este método sobrescribe el método initState de la clase State.
+   * Inicializa la lógica de inicio de sesión (_loginLogic) con una instancia
+   * de AuhtDataSource, pasando las claves del formulario, los controladores
+   * de correo electrónico y contraseña, y una instancia del servicio de autenticación.
+   */
   void initState() {
     super.initState();
     _loginLogic = AuhtDataSource(
@@ -148,6 +156,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  /*
+   * Método que se llama cuando el objeto se va a destruir.
+   * Libera los recursos utilizados por _loginLogic y llama al método dispose() de la clase padre.
+   */
   void dispose() {
     _loginLogic.dispose();
     super.dispose();

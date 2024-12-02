@@ -27,11 +27,25 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
   Map<int, bool> selectedItems = {};
 
   @override
+  /*
+   * Método que se llama cuando el estado del widget se inicializa.
+   * Llama al método _loadData() para cargar los datos necesarios.
+   */
   void initState() {
     super.initState();
     _loadData();
   }
 
+  /*
+   * Carga los datos necesarios para el escáner.
+   * 
+   * Este método intenta obtener los datos almacenados en las preferencias del usuario.
+   * Si los datos están disponibles, actualiza el estado con estos datos y marca todos los elementos como no seleccionados.
+   * Si los datos no están disponibles en las preferencias, intenta obtener los datos desde una API.
+   * Si los datos de la API están disponibles, actualiza el estado con estos datos y marca todos los elementos como no seleccionados.
+   * 
+   * @return Future<void> Un futuro que se completa cuando los datos han sido cargados.
+   */
   Future<void> _loadData() async {
     final data = await startScanerService.getDataFromPreferences();
     if (data != null) {
@@ -50,6 +64,14 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
     }
   }
 
+  /*
+   * Navega a la pantalla de asistencia.
+   *
+   * Este método utiliza el Navigator para empujar una nueva ruta a la pila de navegación,
+   * llevando al usuario a la pantalla de asistencia (AttendanceScreen) con los datos seleccionados.
+   *
+   * @param selectedBoxData Los datos seleccionados que se pasarán a la pantalla de asistencia.
+   */
   void _navigateToAttendanceScreen(dynamic selectedBoxData) {
     Navigator.push(
       context,

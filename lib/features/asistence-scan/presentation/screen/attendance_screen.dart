@@ -31,6 +31,15 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     super.dispose();
   }
 
+  /*
+   * Método que se ejecuta cuando se crea la vista del lector de QR.
+   * 
+   * @param controller El controlador de la vista del lector de QR.
+   * 
+   * Este método escucha el flujo de datos escaneados y, si el código escaneado no es nulo,
+   * analiza el código QR. Si los datos analizados no son nulos y no están ya presentes en la lista de asistencia,
+   * se agrega un nuevo registro con la hora de ingreso actual.
+   */
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
@@ -49,6 +58,26 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     });
   }
 
+  /*
+   * Analiza un código QR y extrae información específica.
+   *
+   * Este método toma un código QR en forma de cadena, lo divide en partes
+   * utilizando el carácter '|' como delimitador y extrae los nombres,
+   * apellidos y número de identificación del usuario.
+   *
+   * Si el código QR contiene al menos tres partes, se devuelve un mapa con
+   * las claves 'nombres', 'apellidos' y 'numero_identificacion'. Si el código
+   * QR no contiene suficiente información, se muestra una alerta de error y
+   * se devuelve null.
+   *
+   * En caso de que ocurra una excepción durante el análisis del código QR,
+   * se muestra una alerta de error con el mensaje de la excepción y se
+   * devuelve null.
+   *
+   * @param code El código QR en forma de cadena.
+   * @return Un mapa con la información extraída del código QR o null si el
+   *         código QR no es válido o ocurre un error durante el análisis.
+   */
   Map<String, String>? parseQRCode(String code) {
     try {
       final parts = code.split('|');
@@ -68,6 +97,22 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     }
   }
 
+  /*
+   * Guarda los datos de asistencia en el servidor.
+   * 
+   * Este método envía una solicitud POST al servidor para almacenar los datos de asistencia.
+   * Utiliza la biblioteca Dio para realizar la solicitud HTTP.
+   * 
+   * Si la lista de asistencia está vacía y la respuesta del servidor es exitosa (código 200),
+   * muestra una alerta indicando que no hay asistencias para guardar.
+   * 
+   * Si la respuesta del servidor es exitosa (código 200), muestra una alerta de éxito,
+   * limpia la lista de asistencia y actualiza el estado de carga después de un retraso de 4 segundos.
+   * 
+   * Si la respuesta del servidor es un error 404, muestra una alerta indicando que el listado no se ha guardado.
+   * 
+   * @return Future<void> Un futuro que se completa cuando se han guardado los datos.
+   */
   Future<void> _saveData() async {
     final dio = Dio();
     final url = '${Environment.apiUrl}/asistencia/store';
