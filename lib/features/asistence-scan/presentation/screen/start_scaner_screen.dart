@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, unused_element, use_build_context_synchronously, empty_catches
-
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/asistence-scan/helpers/exit_data.dart';
 import 'package:flutter/material.dart';
@@ -24,33 +22,22 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
   final ExitData _exitData = ExitData();
 
   List<dynamic>? scanerData;
+  List<dynamic>? filteredData;
   Map<int, bool> selectedItems = {};
+  final TextEditingController _filterController = TextEditingController();
 
   @override
-  /*
-   * Método que se llama cuando el estado del widget se inicializa.
-   * Llama al método _loadData() para cargar los datos necesarios.
-   */
   void initState() {
     super.initState();
     _loadData();
   }
 
-  /*
-   * Carga los datos necesarios para el escáner.
-   * 
-   * Este método intenta obtener los datos almacenados en las preferencias del usuario.
-   * Si los datos están disponibles, actualiza el estado con estos datos y marca todos los elementos como no seleccionados.
-   * Si los datos no están disponibles en las preferencias, intenta obtener los datos desde una API.
-   * Si los datos de la API están disponibles, actualiza el estado con estos datos y marca todos los elementos como no seleccionados.
-   * 
-   * @return Future<void> Un futuro que se completa cuando los datos han sido cargados.
-   */
   Future<void> _loadData() async {
     final data = await startScanerService.getDataFromPreferences();
     if (data != null) {
       setState(() {
         scanerData = data;
+        filteredData = data;
         selectedItems = {for (var item in data) item['id']: false};
       });
     } else {
@@ -58,20 +45,23 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
       if (apiData != null) {
         setState(() {
           scanerData = apiData;
+          filteredData = apiData;
           selectedItems = {for (var item in apiData) item['id']: false};
         });
       }
     }
   }
 
-  /*
-   * Navega a la pantalla de asistencia.
-   *
-   * Este método utiliza el Navigator para empujar una nueva ruta a la pila de navegación,
-   * llevando al usuario a la pantalla de asistencia (AttendanceScreen) con los datos seleccionados.
-   *
-   * @param selectedBoxData Los datos seleccionados que se pasarán a la pantalla de asistencia.
-   */
+  void _filterData(String query) {
+    setState(() {
+      filteredData = scanerData?.where((item) {
+        final ficha = item['ficha'].toString().toLowerCase();
+        final input = query.toLowerCase();
+        return ficha.contains(input);
+      }).toList();
+    });
+  }
+
   void _navigateToAttendanceScreen(dynamic selectedBoxData) {
     Navigator.push(
       context,
@@ -100,16 +90,28 @@ class _StartScanerScreenState extends State<StartScanerScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                const SizedBox(
-                  height: 20,
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextField(
+                    controller: _filterController,
+                    decoration: InputDecoration(
+                      labelText: 'Buscar por número de ficha',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    onChanged: _filterData,
+                  ),
                 ),
+                const SizedBox(height: 20),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
                     child: ListView.builder(
-                      itemCount: scanerData!.length,
+                      itemCount: filteredData?.length ?? 0,
                       itemBuilder: (context, index) {
-                        final item = scanerData![index];
+                        final item = filteredData![index];
                         return Container(
                           margin: const EdgeInsets.symmetric(
                             vertical: 8.0,
