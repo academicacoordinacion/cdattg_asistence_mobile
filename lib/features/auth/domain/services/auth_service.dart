@@ -137,7 +137,7 @@ class AuthService {
    * @return El ID del usuario como una cadena de texto si está disponible, de lo contrario, null.
    */
   String? getUserId() {
-    final userId = _user?['id'];
+    final userId = _person?['id'];
     if (userId != null) {
       return userId.toString();
     }
