@@ -9,11 +9,9 @@ import 'package:cdattg_sena_mobile/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-final sesion = AuthService().loadData();
-
 final GoRouter routerApp = GoRouter(
-  initialLocation:
-      AuthService().getToken() == null ? '/' : '/instructor-screen',
+  // initialLocation: authService.getToken() == null ? '/' : '/instructor-screen',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',

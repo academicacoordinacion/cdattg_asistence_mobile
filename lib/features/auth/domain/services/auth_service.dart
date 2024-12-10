@@ -137,7 +137,8 @@ class AuthService {
    * @return El ID del usuario como una cadena de texto si está disponible, de lo contrario, null.
    */
   String? getUserId() {
-    final userId = _user?['id'];
+    //final userId = _user?['id'];
+    final userId = _person?['id'];
     if (userId != null) {
       return userId.toString();
     }
@@ -160,9 +161,10 @@ class AuthService {
     _person = null;
 
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('token');
-    await prefs.remove('user');
-    await prefs.remove('person');
+    await prefs.clear();
+    // await prefs.remove('token');
+    // await prefs.remove('user');
+    // await prefs.remove('person');
   }
 
   /*
@@ -174,6 +176,10 @@ class AuthService {
    */
   Future<bool> isAuthenticated() async {
     await loadData();
-    return _token != null;
+    if (getToken() != null) {
+      return true;
+    }
+
+    return false;
   }
 }

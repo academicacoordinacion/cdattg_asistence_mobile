@@ -2,13 +2,29 @@ import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final AuthService authService = AuthService();
+
+  void _redirect() {
+    final token = authService.getToken();
+    if (token == null) {
+      routerApp.go('/login');
+    } else {
+      routerApp.go('/instructor-screen');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final appColor = Theme.of(context).colorScheme;
-    final AuthService authService = AuthService();
+
     authService.loadData();
     return Scaffold(
         appBar: AppBar(
@@ -56,17 +72,18 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
-                      bool isAuthenticated =
-                          await authService.isAuthenticated();
-                      if (isAuthenticated) {
-                        routerApp.go(
-                            '/instructor-screen'); // Redirigir a la ruta deseada si el token existe
-                      }
-
-                      if (!isAuthenticated) {
-                        routerApp.go(
-                            '/login'); // Redirigir a la ruta de login si el token no existe
-                      }
+                      _redirect();
+                      // bool isAuthenticated =
+                      //     await authService.isAuthenticated();
+                      // if (isAuthenticated) {
+                      //   routerApp.go(
+                      //       '/instructor-screen'); // Redirigir a la ruta deseada si el token existe
+                      // } else {
+                      //   if (!isAuthenticated) {
+                      //     routerApp.go(
+                      //         '/login'); // Redirigir a la ruta de login si el token no existe
+                      //   }
+                      // }
                     },
                   ),
                 ),
