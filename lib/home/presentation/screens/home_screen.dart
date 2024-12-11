@@ -24,10 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final appColor = Theme.of(context).colorScheme;
-<<<<<<< HEAD
     final AuthService authService = AuthService();
-=======
->>>>>>> 6208f39cb9aaab4005a4edae965f65f001439bd7
 
     authService.loadData();
     // final token = authService.getToken();
@@ -86,7 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     onPressed: () async {
-<<<<<<< HEAD
                       verificate();
                       /*if (token != null) {
                         print('el token dentro $token');
@@ -97,20 +93,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       print('El token fuera $token');
 
                       routerApp.go('/login');*/
-=======
-                      _redirect();
-                      // bool isAuthenticated =
-                      //     await authService.isAuthenticated();
-                      // if (isAuthenticated) {
-                      //   routerApp.go(
-                      //       '/instructor-screen'); // Redirigir a la ruta deseada si el token existe
-                      // } else {
-                      //   if (!isAuthenticated) {
-                      //     routerApp.go(
-                      //         '/login'); // Redirigir a la ruta de login si el token no existe
-                      //   }
-                      // }
->>>>>>> 6208f39cb9aaab4005a4edae965f65f001439bd7
                     },
                   ),
                 ),

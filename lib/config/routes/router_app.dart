@@ -9,7 +9,6 @@ import 'package:cdattg_sena_mobile/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-<<<<<<< HEAD
 final verificator = AuthService();
 
 String action() {
@@ -22,11 +21,6 @@ String action() {
 
 final GoRouter routerApp = GoRouter(
   initialLocation: action(),
-=======
-final GoRouter routerApp = GoRouter(
-  // initialLocation: authService.getToken() == null ? '/' : '/instructor-screen',
-  initialLocation: '/',
->>>>>>> 6208f39cb9aaab4005a4edae965f65f001439bd7
   routes: [
     GoRoute(
       path: '/',

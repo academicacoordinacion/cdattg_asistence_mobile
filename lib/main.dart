@@ -5,12 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
-<<<<<<< HEAD
 
-  runApp(MyApp());
-=======
   runApp(const MyApp());
->>>>>>> 6208f39cb9aaab4005a4edae965f65f001439bd7
 }
 
 class MyApp extends StatelessWidget {
