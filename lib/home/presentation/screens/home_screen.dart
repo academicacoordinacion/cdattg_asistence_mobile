@@ -2,13 +2,32 @@ import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final AuthService authService = AuthService();
+
+  void _redirect() {
+    final token = authService.getToken();
+    if (token == null) {
+      routerApp.go('/login');
+    } else {
+      routerApp.go('/instructor-screen');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final appColor = Theme.of(context).colorScheme;
+<<<<<<< HEAD
     final AuthService authService = AuthService();
+=======
+>>>>>>> 6208f39cb9aaab4005a4edae965f65f001439bd7
 
     authService.loadData();
     // final token = authService.getToken();
@@ -67,6 +86,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
+<<<<<<< HEAD
                       verificate();
                       /*if (token != null) {
                         print('el token dentro $token');
@@ -77,6 +97,20 @@ class HomeScreen extends StatelessWidget {
                       print('El token fuera $token');
 
                       routerApp.go('/login');*/
+=======
+                      _redirect();
+                      // bool isAuthenticated =
+                      //     await authService.isAuthenticated();
+                      // if (isAuthenticated) {
+                      //   routerApp.go(
+                      //       '/instructor-screen'); // Redirigir a la ruta deseada si el token existe
+                      // } else {
+                      //   if (!isAuthenticated) {
+                      //     routerApp.go(
+                      //         '/login'); // Redirigir a la ruta de login si el token no existe
+                      //   }
+                      // }
+>>>>>>> 6208f39cb9aaab4005a4edae965f65f001439bd7
                     },
                   ),
                 ),

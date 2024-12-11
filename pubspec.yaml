@@ -35,10 +35,9 @@ dependencies:
   flutter_dotenv: ^5.1.0
   fluttertoast: ^8.2.8
   go_router: ^14.2.7
-
   provider: ^6.1.2
   qr_code_scanner: ^1.0.1
-  shared_preferences: ^2.3.2
+  shared_preferences: ^2.3.3
 
 dev_dependencies:
   flutter_lints: ^4.0.0
@@ -56,8 +55,8 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-      - .env
-      - assets/images/logo_sena.png
+    - .env
+    - assets/images/logo_sena.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

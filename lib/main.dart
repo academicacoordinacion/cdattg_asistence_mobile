@@ -1,19 +1,20 @@
 import 'package:cdattg_sena_mobile/config/routes/router_app.dart';
 import 'package:cdattg_sena_mobile/config/theme/theme_app.dart';
-import 'package:cdattg_sena_mobile/features/auth/domain/domain.dart';
-// import 'package:cdattg_sena_mobile/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
+<<<<<<< HEAD
 
   runApp(MyApp());
+=======
+  runApp(const MyApp());
+>>>>>>> 6208f39cb9aaab4005a4edae965f65f001439bd7
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-  final AuthService authService = AuthService();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

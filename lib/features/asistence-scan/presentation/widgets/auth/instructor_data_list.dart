@@ -28,6 +28,7 @@ class _InstructorDataListState extends State<InstructorDataList> {
 
   Future<void> _loadUserData() async {
     await widget.authService.loadData();
+
     setState(() {
       userData = widget.authService.getUserData();
       personData = widget.authService.getPersonData();
@@ -47,6 +48,8 @@ class _InstructorDataListState extends State<InstructorDataList> {
       routerApp.push('/start-scan');
     } else {
       // Mostrar SnackBar de error
+      auth.logout();
+      routerApp.go('/login');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
