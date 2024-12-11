@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final AuthService authService = AuthService();
 
+  // ignore: unused_element
   void _redirect() {
     final token = authService.getToken();
     if (token == null) {
