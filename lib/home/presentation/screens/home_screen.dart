@@ -9,7 +9,18 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final appColor = Theme.of(context).colorScheme;
     final AuthService authService = AuthService();
+
     authService.loadData();
+    // final token = authService.getToken();
+
+    void verificate() {
+      if (authService.getToken() == null) {
+        return routerApp.go('/login');
+      }
+
+      return routerApp.go('/instructor-screen');
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -56,17 +67,16 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
-                      bool isAuthenticated =
-                          await authService.isAuthenticated();
-                      if (isAuthenticated) {
+                      verificate();
+                      /*if (token != null) {
+                        print('el token dentro $token');
                         routerApp.go(
-                            '/instructor-screen'); // Redirigir a la ruta deseada si el token existe
+                            'C'); // Redirigir a la ruta deseada si el token existe
                       }
 
-                      if (!isAuthenticated) {
-                        routerApp.go(
-                            '/login'); // Redirigir a la ruta de login si el token no existe
-                      }
+                      print('El token fuera $token');
+
+                      routerApp.go('/login');*/
                     },
                   ),
                 ),

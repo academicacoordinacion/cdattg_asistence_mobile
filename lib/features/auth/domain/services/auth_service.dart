@@ -160,6 +160,7 @@ class AuthService {
     _person = null;
 
     final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
     await prefs.remove('token');
     await prefs.remove('user');
     await prefs.remove('person');
@@ -172,8 +173,18 @@ class AuthService {
    *
    * @return Un Future que resuelve a true si el usuario está autenticado, de lo contrario false.
    */
-  Future<bool> isAuthenticated() async {
+
+  /*Future<bool> isAuthenticated() async {
     await loadData();
     return _token != null;
+  }*/
+
+  Future<bool> isAuthenticated() async {
+    await loadData();
+    if (getToken() != null) {
+      return true;
+    }
+
+    return false;
   }
 }
