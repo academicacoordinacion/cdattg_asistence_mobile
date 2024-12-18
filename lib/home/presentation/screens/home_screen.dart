@@ -10,33 +10,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final AuthService authService = AuthService();
-
-  // ignore: unused_element
-  void _redirect() {
-    final token = authService.getToken();
-    if (token == null) {
-      routerApp.go('/login');
-    } else {
-      routerApp.go('/instructor-screen');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final appColor = Theme.of(context).colorScheme;
     final AuthService authService = AuthService();
 
-    authService.loadData();
-    // final token = authService.getToken();
-
-    void verificate() {
+    /*void verificate() {
       if (authService.getToken() == null) {
         return routerApp.go('/login');
       }
 
       return routerApp.go('/instructor-screen');
-    }
+    }*/
 
     return Scaffold(
         appBar: AppBar(
@@ -67,35 +52,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   margin: const EdgeInsets.symmetric(
                       vertical: 150), // Increased vertical margin
                   child: ElevatedButton.icon(
-                    icon: Icon(Icons.supervised_user_circle_rounded,
-                        color: appColor.onPrimary),
-                    label: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text('Iniciar sesión',
-                          style: TextStyle(color: appColor.onPrimary)),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          appColor.primary, // Set the background color
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                      icon: Icon(Icons.supervised_user_circle_rounded,
+                          color: appColor.onPrimary),
+                      label: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text('Iniciar sesión',
+                            style: TextStyle(color: appColor.onPrimary)),
                       ),
-                    ),
-                    onPressed: () async {
-                      verificate();
-                      /*if (token != null) {
-                        print('el token dentro $token');
-                        routerApp.go(
-                            'C'); // Redirigir a la ruta deseada si el token existe
-                      }
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            appColor.primary, // Set the background color
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () async {
+                        bool authenticate = await authService.isAuthenticated();
+                        if (authenticate == true) {
+                          return routerApp.go('/instructor-screen');
+                        }
 
-                      print('El token fuera $token');
-
-                      routerApp.go('/login');*/
-                    },
-                  ),
+                        return routerApp.go('/login');
+                      }),
                 ),
                 const Spacer(),
                 Center(
